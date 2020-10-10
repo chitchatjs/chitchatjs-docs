@@ -6,6 +6,9 @@ set -e
 # build
 npm run build
 
+# Copy the JS.ORG CNAME
+cp CNAME src/.vuepress/dist
+
 # navigate into the build output directory
 cd src/.vuepress/dist
 
@@ -23,3 +26,4 @@ git push -f https://github.com/chitchatjs/chitchatjs.github.io.git master
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
 
 cd -
+
