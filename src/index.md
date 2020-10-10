@@ -1,7 +1,7 @@
 ---
 home: true
 title: Chitchat JS
-heroImage: https://v1.vuepress.vuejs.org/hero.png
+heroImage: https://github.com/chitchatjs/chitchatjs/blob/main/images/logo/256x256.png?raw=true
 tagline: A Framework to build natural language voice interfaces.
 actionText: Quick Start →
 actionLink: /guide/
@@ -14,5 +14,3 @@ features:
       details: Feature 3 Description
 footer: Made by Kevindra Singh with ❤️
 ---
-
-<p> Something here </p>
