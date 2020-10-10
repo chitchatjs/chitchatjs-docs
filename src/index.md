@@ -1,10 +1,10 @@
 ---
 home: true
 title: Chitchat JS
-heroImage: https://github.com/chitchatjs/chitchatjs/blob/main/images/logo/256x256.png?raw=true
+heroImage: https://github.com/chitchatjs/chitchatjs/blob/main/images/logo/128x128.png?raw=true
 tagline: A Framework to build natural language voice interfaces.
 actionText: Quick Start →
-actionLink: /guide/
+actionLink: /guide/getting-started
 # features:
 #     - title: Feature 1 Title
 #       details: Feature 1 Description

@@ -10,7 +10,8 @@
     "repository": "https://github.com/chitchatjs/chitchatjs/ChitchatJS",
     "scripts": {
         "dev": "npx vuepress dev src",
-        "build": "npx vuepress build src"
+        "build": "npx vuepress build src",
+        "deploy": "sh ./deploy.sh"
     },
     "license": "MIT",
     "devDependencies": {

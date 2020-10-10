@@ -8,7 +8,7 @@ module.exports = {
     /**
      * Ref：https://v1.vuepress.vuejs.org/config/#description
      */
-    description: description,
+    description: "Documentation for Chitchat JS: A framework for building natural language voice interfaces.",
 
     /**
      * Extra tags to be injected to the page HTML `<head>`
@@ -27,15 +27,16 @@ module.exports = {
      * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
      */
     themeConfig: {
-        repo: "",
+        repo: "chitchatjs/chitchatjs",
         editLinks: false,
         docsDir: "",
         editLinkText: "",
+        logo: "/logo/64x64.png",
         lastUpdated: false,
         nav: [
             {
                 text: "Guide",
-                link: "/guide/",
+                link: "/guide/getting-started",
             },
             {
                 text: "Config",
@@ -46,19 +47,26 @@ module.exports = {
                 link: "https://github.com/chitchatjs/chitchatjs",
             },
         ],
-        sidebar: {
-            "/guide/": [
-                {
-                    title: "Guide",
-                    collapsable: false,
-                    children: ["", "using-vue"],
-                },
-            ],
-        },
+        sidebar: [
+            {
+                title: "About",
+                collapsable: true,
+                children: ["/about/intro", "/about/concepts"],
+            },
+            {
+                title: "Guides",
+                collapsable: true,
+                children: ["/guide/getting-started", "/guide/installation"],
+            },
+        ],
     },
 
     /**
      * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
      */
-    plugins: ["@vuepress/plugin-back-to-top", "@vuepress/plugin-medium-zoom"],
+    plugins: [
+        "@vuepress/plugin-back-to-top",
+        "@vuepress/plugin-medium-zoom",
+        ["@vuepress/google-analytics", { ga: "UA-180195687-1" }],
+    ],
 };
