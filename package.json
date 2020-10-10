@@ -1,0 +1,19 @@
+{
+    "name": "ChitchatJS",
+    "version": "0.0.1",
+    "description": "Framework to build natural language voice interfaces.",
+    "main": "index.js",
+    "authors": {
+        "name": "Kevindra Singh",
+        "email": "kevindra.singh@gmail.com"
+    },
+    "repository": "https://github.com/chitchatjs/chitchatjs/ChitchatJS",
+    "scripts": {
+        "dev": "npx vuepress dev src",
+        "build": "npx vuepress build src"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "vuepress": "^1.5.3"
+    }
+}
