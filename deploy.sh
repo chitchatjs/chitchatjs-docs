@@ -7,7 +7,7 @@ set -e
 npm run build
 
 # Copy the JS.ORG CNAME
-cp CNAME src/.vuepress/dist
+# cp CNAME src/.vuepress/dist
 
 # navigate into the build output directory
 cd src/.vuepress/dist

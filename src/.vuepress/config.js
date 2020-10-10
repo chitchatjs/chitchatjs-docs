@@ -56,7 +56,7 @@ module.exports = {
             {
                 title: "Guides",
                 collapsable: true,
-                children: ["/guide/getting-started", "/guide/installation"],
+                children: ["/guide/getting-started", "/guide/installation", "/guide/configuration", "/guide/templates"],
             },
         ],
     },

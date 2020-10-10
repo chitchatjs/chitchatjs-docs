@@ -4,7 +4,7 @@ title: Chitchat JS
 heroImage: https://github.com/chitchatjs/chitchatjs/blob/main/images/logo/128x128.png?raw=true
 tagline: A Framework to build natural language voice interfaces.
 actionText: Quick Start →
-actionLink: /guide/getting-started
+actionLink: /guide/installation
 # features:
 #     - title: Feature 1 Title
 #       details: Feature 1 Description
