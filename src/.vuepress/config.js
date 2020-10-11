@@ -49,14 +49,20 @@ module.exports = {
         ],
         sidebar: [
             {
-                title: "About",
-                collapsable: true,
-                children: ["/about/intro", "/about/concepts"],
-            },
-            {
                 title: "Guides",
                 collapsable: true,
-                children: ["/guide/getting-started", "/guide/installation", "/guide/configuration", "/guide/templates"],
+                children: [
+                    "/guide/intro",
+                    "/guide/getting-started",
+                    "/guide/directory-structure",
+                    "/guide/components",
+                    "/guide/templates",
+                ],
+            },
+            {
+                title: "Advanced",
+                collapsable: true,
+                children: [],
             },
         ],
     },
