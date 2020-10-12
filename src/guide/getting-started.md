@@ -21,11 +21,15 @@ npm install -g @chitchat/cli
 
 2.  Create a new project
 
+Projects can be created from a prebuilt template. CJS is agnostic of the Node language you use, you can use Typescript or Javascript based templates.
+
 ```sh
 cjs new
 ```
 
 3. Build the project
+
+Building a project generates all the required artifacts, and the backend infrastructure.
 
 ```sh
 cjs build
@@ -33,208 +37,85 @@ cjs build
 
 4. Deploy
 
+Deploy command deploys the generated project to the chosen platform.
+
 ```sh
 cjs deploy
 ```
 
-## Directory Structure
-
-A Chitchat project will look something like this. It may be a Typescript or Javascript package using `npm` package manager.
-
-![Dir](../images/dir-structure.png)
-
-In the `index.ts` file, we define our entire application, which is then used by Chitchat as a hook to generate all the artifacts, dialog engine and wire all the blocks and their implementation together automatically.
-
-Package comes with couple of Chitchat dependencies - `@chitchatjs/core` - a core primitive library and `@chitchatjs/alexa` - an Alexa oriented building block library. We will use components from these libraries to manufacture our voice interfaces.
-
-Let's take a look how a simple dialog might look like in CJS.
-
-## First Dialog
-
-Let's take a simple example, where we want to listen to an event where user says `"hello agent"` to our application and application says `"hello world"` back. To do this, we need to build a Block.
+## Hello World
 
 ```ts
-import { blocks } from "@chitchatjs/core";
+import { alexa as ax } from "@chitchatjs/alexa";
 
-let greetingBlock = blocks
-    .when()
-    .userSays(["hello agent"])
-    .then(blocks.says("hello world!").build())
+// A sample conversation
+let initialState = ax
+    .start()
+    .block(ax.say("Hello world!"))
     .build();
+
+// Skill Definition that wires all the
+// states and transitions together
+let skillDefinition = ax
+    .definition()
+    .addState(initialState)
+    .build();
+
+export = ax.dialogManager(skillDefinition).exports();
 ```
 
 Output:
 
 ```
-User: hello agent
-Agent: hello world!
+User: open my skill
+Alexa: Hello world!
 ```
 
-Now, we can make it better by adding dynamic data into it:
+## Food Menu
 
 ```ts
-let personalizedGreetingBlock = blocks
-    .compound()
-    // A block to set the user name in the state
-    .add(
-        blocks
-            .setStateVar()
-            .set((ctx: Context, event: Event) => {
-                return { name: myDB.getUserName() };
-            })
-            .build()
-    )
-    // A block to render speech
-    .add(
-        blocks
-            .when()
-            .userSays(["hello agent"])
-            .then(blocks.say("hello world, {name}!").build())
-    )
+import { alexa as ax } from "@chitchatjs/alexa";
+
+let initialState = ax
+    .start()
+    .block(ax.ask("Welcome, do you want menu for breakfast, lunch or dinner?").build())
+    .block(ax.goto("food-menu"))
     .build();
-```
 
-Output:
-
-```
-User: hello agent
-Agent: hello world, Kevindra!
-```
-
-As you can see, `{name}` will carry the state from the previous block automatically.
-
-## Deploying Skill
-
-To make use of the `personalizedGreetingBlock` we wrote above, we will need to plug it into our skill code. All the dialogs and logic come together in the `index.ts` file. From which, you need to export two variables.
-
-```ts
-/**
- * This exports a handler for the AWS Lambda function.
- */
-export const handler = dm.handler();
-
-/**
- * This exports the skill object for the dialog manager to properly generate artifacts during the build process.
- */
-export default skill;
-```
-
-To deploy to Alexa, you will first need to instantiate an Alexa specific dialog manager with an engine for it to handle runtime dialogs (a.k.a. `DialogEngine`). `@chitchatjs/alexa` library provides default Dialog manager and a default dialog engine you might want to use.
-
-```ts
-let dm = new AlexaDialogManager(mySkill, new RuleBasedDialogEngine());
-```
-
-Here, we are using a default `RuleBasedDialogEngine` in our dialog manager which is responsible for generating resources for Alexa platform. Similarly, we may use the same `RuleBasedDialogEngine` with some other platform as well.
-
-```ts
-let dm = new FooDialogManager(mySkill, new RuleBasedDialogEngine());
-```
-
-As you can see, we are passing a skill object `mySkill` into our dialog manager. `Skill` object defines all the VUI we wrote in the previous step. We define `Skill` object like so:
-
-```ts
-let skill = new AlexaSkill(conversation);
-```
-
-And to build a conversation:
-
-```ts
-let conversation = conv()
-    .addState(
-        state("INIT")
-            .block(
-                blocks
-                    .compound()
-                    .addBlock(
-                        blocks
-                            .ask()
-                            .say("Hello, you can say hello")
-                            .build()
-                    )
-                    .addBlock(blocks.gotoState("Initialized").build())
+let foodMenuState = ax
+    .state("food-menu")
+    .block(
+        ax
+            .compound()
+            .add(
+                ax
+                    .whenUserSays(["breakfast", "i want breakfast"])
+                    .then(ax.say("okay I have egg omlette for breakfast today."))
+                    .build()
+            )
+            .add(
+                ax
+                    .whenUserSays(["lunch", "i want lunch"])
+                    .then(ax.say("okay I have biryani for lunch today."))
+                    .build()
+            )
+            .add(
+                ax
+                    .whenUserSays(["dinner", "i want dinner"])
+                    .then(ax.say("okay I have chicken curry, roti for dinner today."))
                     .build()
             )
             .build()
     )
-    .addState(
-        state("Initialized")
-            .block(personalizedGreetingBlock)
-            .build()
-    )
     .build();
+export = ax.dialogManager(definition).exports();
 ```
 
-## More Block Examples
+Output:
 
-When user says a text, say a text back:
-
-```ts
-blocks
-    .when()
-    .userSays(["user says this"])
-    .then(blocks.say("system says this back").build())
-    .build();
 ```
-
-When user says a text, say a text back, otherwise say something else:
-
-```ts
-blocks
-    .when()
-    .userSays(["user says this"])
-    .then(blocks.say("system says this back").build())
-    .otherwise(blocks.say("sorry, I don't understand").build())
-    .build();
-```
-
-When user is a returning user, say something else:
-
-```ts
-// Check if user is returning and set welcome message in the state.
-let prepareWelcomeMessage = () => {
-    return blocks
-        .setStateVar()
-        .set((ctx: Context, event: Event) => {
-            let userId = event..
-            if (isReturningUser(userId || "")) {
-                return { welcomeMessage: "Hello! welcome back." };
-            }
-            return { welcomeMessage: "Hello! welcome." };
-        })
-        .build();
-};
-
-// render the welcomeMessage
-blocks
-    .compound()
-    .add(prepareWelcomeMessage())
-    .add(blocks.say("{welcomeMessage}").build())
-    .build();
-```
-
-Setting Skill Information such as skill name etc using blocks:
-
-```ts
-let skillNameBlock = blocks
-    .info(Locale.en_US)
-    .name("My Chatbot")
-    .build();
-```
-
-This will set the Skill name to be `"My Chatbot"`. You can add this block in your `Conversation` chain anywhere. To define name for different locales, you can make use of `compound` block.
-
-```ts
-let builder = blocks.compound();
-for (let locale in Locale) {
-    if (locale.startsWith("en_")) {
-        builder.add(
-            blocks
-                .info(Locale.en_US)
-                .name("My Chatbot")
-                .build()
-        );
-    }
-}
-let skillNamesBlock = builder.build();
+U: open my skill
+A: Welcome, do you want menu for breakfast, lunch or dinner?
+U: lunch
+A: okay I have biryani for lunch today
 ```

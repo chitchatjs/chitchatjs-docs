@@ -19,6 +19,7 @@ module.exports = {
         ["meta", { name: "theme-color", content: "#3eaf7c" }],
         ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
         ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
+        ["link", { rel: "icon", href: "/logo/64x64.png" }],
     ],
 
     /**
@@ -51,11 +52,12 @@ module.exports = {
             {
                 title: "Guides",
                 collapsable: true,
+                sidebarDepth: 2,
                 children: [
                     "/guide/intro",
                     "/guide/getting-started",
                     "/guide/directory-structure",
-                    "/guide/components",
+                    "/alexa/components",
                     "/guide/templates",
                 ],
             },
