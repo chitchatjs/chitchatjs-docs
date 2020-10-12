@@ -8,7 +8,7 @@ module.exports = {
     /**
      * Ref：https://v1.vuepress.vuejs.org/config/#description
      */
-    description: "Documentation for Chitchat JS: A framework for building natural language voice interfaces.",
+    description: "Documentation for Chitchat JS: A framework for building multi modal voice interfaces.",
 
     /**
      * Extra tags to be injected to the page HTML `<head>`
@@ -32,7 +32,7 @@ module.exports = {
         editLinks: false,
         docsDir: "",
         editLinkText: "",
-        logo: "/logo/64x64.png",
+        logo: "/logo/logo-puzzle.png",
         lastUpdated: false,
         nav: [
             {

@@ -1,15 +1,15 @@
 ---
 home: true
 title: Chitchat JS
-heroImage: https://github.com/chitchatjs/chitchatjs/blob/main/images/logo/128x128.png?raw=true
-tagline: A framework to build natural language voice interfaces for Alexa Skill.
+heroImage: /logo/logo-puzzle.png
+tagline: A framework for building multi-modal voice interfaces.
 actionText: Quick Start →
 actionLink: /guide/getting-started
 features:
     - title: Simplicity
-      details: Write your entire Alexa skill using Typescript or Javascript.
-    - title: Pluggable Design with native state management
-      details: Framework helps you design your voice experience in Blocks, that you can reuse. No more hassle to write code to manage hundreds of state. Just plugin Blocks where you want to handle a specific experience.
+      details: Write your entire Alexa skill (or Google Agent or any other chatbot) using Typescript or Javascript in a declarative style. Buid on what you know already.
+    - title: Pluggable Design
+      details: Do more with fewer lines of code. Framework helps you design your experience using Blocks.
     - title: Community
       details: Find and share reusable Blocks and enrich the experience even further.
 footer: Made by Kevindra Singh with ❤️

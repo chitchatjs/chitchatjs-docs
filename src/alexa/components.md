@@ -72,7 +72,7 @@ Compound block combines multiple blocks together. It executes all the blocks seq
 ```ts
 ax.compound()
     .add(ax.say("Hello world"))
-    .build)
+    .build();
 ```
 
 ::: warning Caution
