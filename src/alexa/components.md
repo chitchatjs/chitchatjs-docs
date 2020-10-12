@@ -75,7 +75,7 @@ ax.compound()
     .build)
 ```
 
-::: warning Important
+::: warning Caution
 If using multiple blocks that generate the same field in the final response, the last block will overwrite the previous block's response field.
 :::
 
@@ -118,6 +118,50 @@ A: hello!
 ```
 
 This block automatically generates an intent for the specified utterance!
+
+#### Capturing slot types
+
+You can use `{..}` to annotate a type inside a sample utterance and then use `.withSlotType(<name>, <slot-type-name>)` method to add a type.
+
+```ts
+ax.whenUserSays(["hello {name}"])
+    .withSlotType("name", "AMAZON.FIRST_NAME")
+    .then(ax.say("hello!"))
+    .build();
+```
+
+::: warning Caution
+If a slot type is already added elsewhere in the skill before this type, this type will not be injected. To manage types in a better way use the global block `ax.type()`.
+:::
+
+#### Using slot type values
+
+You can set the state variables using `ax.setStateVar()` after a `ax.whenUserSays()` block.
+
+```ts
+ax.whenUserSays(["hello {name}"])
+    .withSlotType("name", "AMAZON.FIRST_NAME")
+    .then(
+        ax
+            .compound()
+            .add(
+                ax.setStateVar((c: AlexaDialogContext, e: AlexaEvent) => {
+                    // setting the slot value as a state var
+                    return { name: e.currentRequest.request.intent.slots.name.value };
+                })
+            )
+            .add(ax.ask("did you mean {name}?").build())
+            .build()
+    )
+    .build();
+```
+
+Output:
+
+```
+U: hello alexa
+A: did you mean alexa?
+```
 
 ### `ax.whenIntentName()`
 
