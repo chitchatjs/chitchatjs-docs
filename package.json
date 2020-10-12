@@ -1,5 +1,5 @@
 {
-    "name": "ChitchatJS",
+    "name": "chitchatjs-docs",
     "version": "0.0.1",
     "description": "Framework to build natural language voice interfaces.",
     "main": "index.js",
