@@ -163,21 +163,6 @@ U: hello alexa
 A: did you mean alexa?
 ```
 
-### `ax.slotType()`
-
-A block that allows you to inject a Slot Type in your skill.
-
-```ts
-ax.slotType("MyCity")
-  .values(["hapur", "ghaziabad"])
-  .build();
-// or
-let slotType: SlotType = mySlotType(); // create your slot type from scratch
-ax.slotType()
-  .import(slotType)
-  .build();
-```
-
 ### `ax.localize()`
 
 A block to localize the artifacts in your skill, which you can add anywhere in your block tree.
@@ -197,6 +182,41 @@ ax.localize([Locale.en_US, Locale.en_CA])
 
 ::: tip Note
 `ax.localize()` will have no effect on blocks that are purely to execute run time requests, such as `ax.say(..)`.
+:::
+
+### `ax.intent()`
+
+A block that allows you to inject an intent in your skill.
+
+```ts
+ax.intent("HelloIntent", ["hello how are you"]).build();
+// or
+ax.intent("HelloIntent", ["hello how are you {name}"])
+  .slot("name", "AMAZON.FirstName")
+  .build();
+```
+
+::: tip Note
+By default this block will generate intent in the `en-US` locale only. Wrap it inside the `ax.localize()` block to generate this intent in the specific locales.
+:::
+
+### `ax.slotType()`
+
+A block that allows you to inject a Slot Type in your skill.
+
+```ts
+ax.slotType("MyCity")
+  .values(["hapur", "ghaziabad"])
+  .build();
+// or
+let slotType: SlotType = mySlotType(); // create your slot type from scratch
+ax.slotType()
+  .import(slotType)
+  .build();
+```
+
+::: tip Note
+By default this block will generate slot type in the `en-US` locale only. Wrap it inside the `ax.localize()` block to generate this slot type in the specific locales.
 :::
 
 ### `ax.whenIntentName()`
