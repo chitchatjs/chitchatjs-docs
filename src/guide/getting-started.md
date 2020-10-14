@@ -1,6 +1,6 @@
 # Getting Started
 
-## What is Chitchat.js?
+## What is Chitchat.js? <Badge text="beta" />
 
 Chitchat (or CJS) is a framework for building voice driven multi-modal user interfaces (a.k.a. VUI). Chitchat is designed to be incrementally adaptable. You can write a simple rule based voice user interface or as complex as a machine learnt model based VUI. Chitchat comes with three primary components - core library (`@chichatjs/core`), a CLI (`@chitchatjs/cli`) and the implementation strategies (dialog management) which may or may not be platform dependent. We offer `@chitchatjs/alexa` to seamlessly integrate your voice user interface with Alexa.
 
