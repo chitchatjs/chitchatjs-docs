@@ -18,3 +18,21 @@ features:
   #   details: Test your ideas in the playground in CLI.
 footer: Made by Kevindra Singh with ❤️
 ---
+
+<style >
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+<img src="./images/gifs/create-project.gif" alt="Demo GIF" style="display: block;  margin-left: auto;  margin-right: auto;">
+
+---
