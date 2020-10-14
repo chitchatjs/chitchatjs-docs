@@ -19,3 +19,27 @@ You must commit this directory, because removing this directory will cause cjs t
 ::: tip
 You can also configure the output directory to something else as well. Check the [build configuration section](./configuration).
 :::
+
+## Build Configurations
+
+Build configurations are defined in the `cjs.json` in your project root.
+
+```json
+{
+  "outDir": "./pkg",
+  "target": "Alexa"
+}
+```
+
+| Config   | Description                                                                                            | Required |
+| -------- | ------------------------------------------------------------------------------------------------------ | -------- |
+| `outDir` | Location of the output directory.                                                                      | Yes      |
+| `target` | Platform you want to deploy to. Can be `Alexa` or `Google`. <br/> Only `Alexa` is supported right now. | Yes      |
+
+## Deploy
+
+Deploys the project to the target platform.
+
+```
+$ cjs deploy
+```
