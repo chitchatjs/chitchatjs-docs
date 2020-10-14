@@ -13,7 +13,7 @@ A: it's great to talk to you, kevindra, thank you!
 
 - [Pet Match](https://github.com/chitchatjs/pet-match-template)
 
-A simple dog finder skill. Full breakdown available in the [End to End examples section](/alexa/examples).
+A simple dog finder skill that helps you find a ("foo") dog.
 
 ```
 U: open pet match

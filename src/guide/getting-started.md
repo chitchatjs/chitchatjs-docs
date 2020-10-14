@@ -68,14 +68,14 @@ let initialState = ax
   .block(ax.say("Hello world!"))
   .build();
 
-// Skill Definition that wires all the
-// states and transitions together
-let skillDefinition = ax
-  .definition()
+// Skill instance that wires all the
+// everything together
+let skill = ax
+  .skill()
   .addState(initialState)
   .build();
 
-export = ax.dialogManager(skillDefinition).exports();
+export = ax.dialogManager(skill).exports();
 ```
 
 Output:
@@ -122,7 +122,14 @@ let foodMenuState = ax
       .build()
   )
   .build();
-export = ax.dialogManager(definition).exports();
+
+let skill = ax
+  .skill()
+  .addState(initialState)
+  .addState(foodMenuState)
+  .build();
+
+export = ax.dialogManager(skill).exports();
 ```
 
 Output:
