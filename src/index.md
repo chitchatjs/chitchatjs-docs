@@ -2,7 +2,7 @@
 home: true
 title: Chitchat JS
 heroImage: /logo/logo-puzzle.png
-tagline: A framework for building multi-modal voice interfaces.
+tagline: A framework for building voice driven multi-modal user interfaces easily.
 actionText: Quick Start →
 actionLink: /guide/getting-started
 features:

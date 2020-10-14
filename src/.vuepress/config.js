@@ -59,7 +59,7 @@ module.exports = {
         title: "Alexa",
         collapsable: true,
         sidebarDepth: 2,
-        children: ["/alexa/components", "/guide/templates"],
+        children: ["/alexa/components", "/alexa/templates", "/alexa/examples", "/alexa/blocks"],
       },
       {
         title: "Advanced",
