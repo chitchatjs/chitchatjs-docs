@@ -1,20 +1,12 @@
-# Introduction
-
-## What is Chitchat.js?
-
-Chitchat (or CJS) is a framework for building voice driven multi-modal user interfaces (a.k.a. VUI). Chitchat is designed to be incrementally adaptable. You can write a simple rule based voice user interface or as complex as a machine learnt model based VUI. Chitchat comes with three primary components - core library (`@chichatjs/core`), a CLI (`@chitchatjs/cli`) and the implementation strategies (dialog management) which may or may not be platform dependents. We offer `@chitchatjs/alexa` to seamlessly integrate your voice user interface with Alexa.
-
-`@chichatjs/core` is a primitive base that defines core framework premitives that are voice-platform and dialog management strategy independent. `@chitchatjs/cli` provides easy command access to create a project, build and deploy it (only supported for Alexa platform right now). `@chitchatjs/alexa` is a collection of VUI components designed on top of the core library's components that help build Alexa oriented VUI.
-
-## Concepts
+# Concepts
 
 Chitchat is designed around three core components:
 
-### 1. State
+## 1. State
 
 **State** is a single point-in-time state of a voice application during a dialog between user and agent (a voice enabled virtual assistant system). As user interacts with the application, user events cause the state to change. In CJS, State is a collection of actions application might at a specific point in time. For example - "Food ordering" might be a state where you might handle all food ordering related events from the user.
 
-### 2. Block
+## 2. Block
 
 **Blocks** (or Building Blocks) define what the agent would do during a certain state. On a high level, a Block defines two behaviors - 1. how to contribute to the application during the build process, such as generating specific artifacts and 2. how to help application generate a response back to the user. It does so by implementing these two interfaces:
 
@@ -29,7 +21,7 @@ Blocks are highly composable and can define experiences as simple as Greeting Bl
 
 `@chitchatjs/alexa` library comes with rich set of native building Blocks, however, you can find more blocks in our third party repository (TBD). Implementing a new block yourself is quite easy as well! We will go through that later in this document.
 
-### 3. Agent
+## 3. Agent
 
 **Agent** is where everything comes together. Agent is a collection of states, and how they relate to each other and which user events trigger a transition between states.
 
