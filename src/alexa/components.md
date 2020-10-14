@@ -1,8 +1,8 @@
-# Alexa Components
+# Components
 
 With `@chitchatjs/alexa` you get many prebuilt Blocks that you can plug into your skill code. We will use `ax` as a short form of `alexa` below.
 
-## Core Components
+## Core
 
 ### `ax.dialogManager()`
 
@@ -49,8 +49,8 @@ This block allows you to ask question to the user.
 ax.ask("what is your name?").build();
 // or
 ax.ask("what is your name?")
-    .reprompt("your name please")
-    .build();
+  .reprompt("your name please")
+  .build();
 ```
 
 ### `ax.say()`
@@ -71,8 +71,8 @@ Compound block combines multiple blocks together. It executes all the blocks seq
 
 ```ts
 ax.compound()
-    .add(ax.say("Hello world"))
-    .build();
+  .add(ax.say("Hello world"))
+  .build();
 ```
 
 ::: warning Caution
@@ -85,11 +85,11 @@ When block in its simplest form executes its block only when provided condition 
 
 ```ts
 let whenBlock = ax
-    .when()
-    .true((ctx: AlexaDialogContext, event: AlexaEvent) => {
-        return event.currentRequest.request.type === "IntentRequest";
-    })
-    .then(ax.say("This is an intent request!"));
+  .when()
+  .true((ctx: AlexaDialogContext, event: AlexaEvent) => {
+    return event.currentRequest.request.type === "IntentRequest";
+  })
+  .then(ax.say("This is an intent request!"));
 ```
 
 Above code will render `This is an intent request` on every `IntentRequest`.
@@ -106,8 +106,8 @@ A much simple `when` block that only checks if user said a specific utterance.
 
 ```ts
 ax.whenUserSays(["hello alexa"])
-    .then(ax.say("hello!"))
-    .build();
+  .then(ax.say("hello!"))
+  .build();
 ```
 
 This will generate:
@@ -125,9 +125,9 @@ You can use `{..}` to annotate a type inside a sample utterance and then use `.w
 
 ```ts
 ax.whenUserSays(["hello {name}"])
-    .withSlotType("name", "AMAZON.FIRST_NAME")
-    .then(ax.say("hello!"))
-    .build();
+  .withSlotType("name", "AMAZON.FIRST_NAME")
+  .then(ax.say("hello!"))
+  .build();
 ```
 
 ::: warning Caution
@@ -140,20 +140,20 @@ You can set the state variables using `ax.setStateVar()` after a `ax.whenUserSay
 
 ```ts
 ax.whenUserSays(["hello {name}"])
-    .withSlotType("name", "AMAZON.FIRST_NAME")
-    .then(
-        ax
-            .compound()
-            .add(
-                ax.setStateVar((c: AlexaDialogContext, e: AlexaEvent) => {
-                    // setting the slot value as a state var
-                    return { name: e.currentRequest.request.intent.slots.name.value };
-                })
-            )
-            .add(ax.ask("did you mean {name}?").build())
-            .build()
-    )
-    .build();
+  .withSlotType("name", "AMAZON.FIRST_NAME")
+  .then(
+    ax
+      .compound()
+      .add(
+        ax.setStateVar((c: AlexaDialogContext, e: AlexaEvent) => {
+          // setting the slot value as a state var
+          return { name: e.currentRequest.request.intent.slots.name.value };
+        })
+      )
+      .add(ax.ask("did you mean {name}?").build())
+      .build()
+  )
+  .build();
 ```
 
 Output:
@@ -163,14 +163,50 @@ U: hello alexa
 A: did you mean alexa?
 ```
 
+### `ax.slotType()`
+
+A block that allows you to inject a Slot Type in your skill.
+
+```ts
+ax.slotType("MyCity")
+  .values(["hapur", "ghaziabad"])
+  .build();
+// or
+let slotType: SlotType = mySlotType(); // create your slot type from scratch
+ax.slotType()
+  .import(slotType)
+  .build();
+```
+
+### `ax.localize()`
+
+A block to localize the artifacts in your skill, which you can add anywhere in your block tree.
+
+```ts
+ax.localize([Locale.en_US, Locale.en_CA])
+  .block(
+    // now, info block is localized and
+    // will produce artifacts in both en-US and en-CA locales.
+    ax
+      .info()
+      .name("Hello bot")
+      .build()
+  )
+  .build();
+```
+
+::: tip Note
+`ax.localize()` will have no effect on blocks that are purely to execute run time requests, such as `ax.say(..)`.
+:::
+
 ### `ax.whenIntentName()`
 
 Another variation of `when` block that gives you a bit more control. You can define your intent outside and use this block to define condition by intent name.
 
 ```ts
 ax.whenIntentName("HelloAlexaIntent")
-    .then(ax.say("hello!"))
-    .build();
+  .then(ax.say("hello!"))
+  .build();
 ```
 
 ### `ax.setStateVar()`
@@ -179,9 +215,9 @@ This blocks allows you to set state variable(s), so that you can use them in you
 
 ```ts
 ax.compound()
-    .add(ax.setStateVar("name", "Kevindra"))
-    .add(ax.say("hello, {name}!"))
-    .build();
+  .add(ax.setStateVar("name", "Kevindra"))
+  .add(ax.say("hello, {name}!"))
+  .build();
 ```
 
 Output: Now Alexa knows our name.
@@ -195,14 +231,14 @@ You can also use this block to hook your own function, for more dynamic value in
 
 ```ts
 ax.compound()
-    .add(
-        ax.setStateVar((ctx: AlexaDialogContext, event: AlexaEvent) => {
-            let userName = myApi.getUserName();
-            return { name: userName };
-        })
-    )
-    .add(ax.say("hello, {name}!"))
-    .build();
+  .add(
+    ax.setStateVar((ctx: AlexaDialogContext, event: AlexaEvent) => {
+      let userName = myApi.getUserName();
+      return { name: userName };
+    })
+  )
+  .add(ax.say("hello, {name}!"))
+  .build();
 ```
 
 This block uses string interpolation. When you define a variable name inside `{}` it will look for the state.
@@ -227,17 +263,17 @@ This block allows you to go to a new state.
 
 ```ts
 ax.compound()
-    .add(ax.say("taking you to the dungen"))
-    .add(ax.goto("Dungen"));
+  .add(ax.say("taking you to the dungen"))
+  .add(ax.goto("Dungen"));
 
 ax.state("Dungen")
-    .add(
-        ax
-            .whenUserSays(["why am I in the dungen"])
-            .then(ax.say("because dungen is cool"))
-            .build()
-    )
-    .build();
+  .add(
+    ax
+      .whenUserSays(["why am I in the dungen"])
+      .then(ax.say("because dungen is cool"))
+      .build()
+  )
+  .build();
 ```
 
 Output:
@@ -259,12 +295,13 @@ Sometimes, you may not want to render any response back. This is useful when you
 
 ### `ax.info()`
 
-Info block allows you to update your skill's details such as its name. You can simply plug in this block anywhere in your skill definition and it will inject the specified name in your Skill's manifest.
+Info block allows you to update your skill's details such as its name, invocation name etc. You can simply plug in this block anywhere in your skill definition and it will inject the specified name in your Skill's manifest and/or in your interaction models.
 
 ```ts
 ax.info(Locale.en_US)
-    .name("My Skill")
-    .build();
+  .name("My Skill")
+  .invocationName("My Skill")
+  .build();
 ```
 
 ### `ax.custom()`
@@ -273,12 +310,12 @@ Custom block gives your full control in how you want to handle the resource gene
 
 ```ts
 ax.custom()
-    .executor((c: AlexaDialogContext, e: AlexaEvent) => {
-        let res = ResponseFactory.init();
-        res.speak("I'm speaking this from a custom block.");
-        return res.getResponse();
-    })
-    .build();
+  .executor((c: AlexaDialogContext, e: AlexaEvent) => {
+    let res = ResponseFactory.init();
+    res.speak("I'm speaking this from a custom block.");
+    return res.getResponse();
+  })
+  .build();
 ```
 
 Output:
@@ -292,14 +329,14 @@ Sometimes you also want to manually handle the Interaction Models, Skill Manifes
 
 ```ts
 ax.custom()
-    .builder((c: AlexaBuilderContext) => {
-        return {
-            resourceMap: {
-                "/skill.json": mySkillManifest,
-            },
-        };
-    })
-    .build();
+  .builder((c: AlexaBuilderContext) => {
+    return {
+      resourceMap: {
+        "/skill.json": mySkillManifest,
+      },
+    };
+  })
+  .build();
 ```
 
 ::: tip

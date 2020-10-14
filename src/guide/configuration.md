@@ -4,8 +4,8 @@ Build configurations are defined in the `cjs.json` in your project root.
 
 ```json
 {
-    "outDir": "./pkg",
-    "target": "Alexa"
+  "outDir": "./pkg",
+  "target": "Alexa"
 }
 ```
 
