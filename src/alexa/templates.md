@@ -1,4 +1,4 @@
-# Templates
+# Sample Skills
 
 You can bootstrap your projects using external templates. Some of the existing templates:
 
@@ -25,9 +25,7 @@ A: ok i have a foo dog for small and family ..
 
 ## Installing templates
 
-Installing template is easy!
-
-Go to your `~/.cjs/config.json`
+If you want to install above sample skills as templates in your CJS cli. Go to your `~/.cjs/config.json` and add an entry with the git repo url.
 
 ```json
 {

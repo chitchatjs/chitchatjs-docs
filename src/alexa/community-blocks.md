@@ -1,5 +1,3 @@
 # Community Blocks
 
-::: tip Note
-This page will document all the community developer blocks.
-:::
+> This page will document all the community developed blocks.
