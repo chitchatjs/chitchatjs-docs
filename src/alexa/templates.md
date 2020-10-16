@@ -41,6 +41,35 @@ A: 29 is correct! Would you like to play again?
 ..
 ```
 
+- ☕ [Coffee Shop](https://github.com/chitchatjs/coffee-shop)
+
+A more complex skill that shows two flavors - order coffee and order snacks and multiple slot filling and seamless transition between different states.
+
+```
+------ init state ------
+U: open coffee shop next door
+A: Good day! I have a lot of coffee and snacks. What can I get you?
+------ order type state ------
+U: i want to order drink
+A: ok what kind of drink would you like?
+------ order drink state ------
+U: two medium hot chocolate please
+A: delivery or pickup?
+U: for pickup
+A: okay, that was 2 medium hot chocolate for pickup, right?
+U: can i order snacks
+A: okay what kind of snacks would you like?
+------ order snacks state ------
+U: chips please
+A: ok ordered your snack. Anything else?
+U: drink also please
+A: what kind of drink?
+------ order drink state ------
+U: same hot chocolate
+A: okay, that was 2 medium hot chocolate for pickup, right? (context is preserved)
+U: ok ordered!
+```
+
 ## Installing templates
 
 If you want to install above sample skills as templates in your CJS cli. Go to your `~/.cjs/config.json` and add an entry with the git repo url.
