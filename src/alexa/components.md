@@ -121,47 +121,18 @@ This block automatically generates an intent for the specified utterance!
 
 #### Capturing slot types
 
-You can use `{..}` to annotate a type inside a sample utterance and then use `.withSlotType(<name>, <slot-type-name>)` method to add a type.
+You can use `{..}` to annotate a type inside a sample utterance and then use `.withSlotType(<name>, <slot-type-name>)` method to add a type and then use them in the response using the same annotation!
 
 ```ts
 ax.whenUserSays(["hello {name}"])
   .withSlotType("name", "AMAZON.FIRST_NAME")
-  .then(ax.say("hello!"))
+  .then(ax.say("hello you called me {name}!"))
   .build();
 ```
 
 ::: warning Caution
-If a slot type is already added elsewhere in the skill before this type, this type will not be injected. To manage types in a better way use the global block `ax.type()`.
+If a slot type is already added elsewhere in the skill before this type, this type will not be injected. To manage types in a better way use the global block `ax.slotType()`.
 :::
-
-#### Using slot type values
-
-You can set the state variables using `ax.setStateVar()` after a `ax.whenUserSays()` block.
-
-```ts
-ax.whenUserSays(["hello {name}"])
-  .withSlotType("name", "AMAZON.FIRST_NAME")
-  .then(
-    ax
-      .compound()
-      .add(
-        ax.setStateVar((c: AlexaDialogContext, e: AlexaEvent) => {
-          // setting the slot value as a state var
-          return { name: e.currentRequest.request.intent.slots.name.value };
-        })
-      )
-      .add(ax.ask("did you mean {name}?").build())
-      .build()
-  )
-  .build();
-```
-
-Output:
-
-```
-U: hello alexa
-A: did you mean alexa?
-```
 
 ### `ax.localize()`
 
@@ -229,9 +200,20 @@ ax.whenIntentName("HelloAlexaIntent")
   .build();
 ```
 
+### `ax.whenMissingSlot()`
+
+By default if user did not speak a slot value, Alexa would not ask them for the value. This block allows us to do that. It's usually used with `ax.whenIntentName()` or `ax.whenUserSays()` blocks.
+
+```ts
+ax.whenMissingSlot("name")
+  .then(ax.ask("tell me a name").build())
+  .otherwise(ax.say("ok, you said {name}"))
+  .build();
+```
+
 ### `ax.setStateVar()`
 
-This blocks allows you to set state variable(s), so that you can use them in your responses.
+This block allows you to set state variable(s), so that you can use them in your responses.
 
 ```ts
 ax.compound()
