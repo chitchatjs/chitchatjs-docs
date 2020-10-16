@@ -15,117 +15,136 @@ Chitchat requires the following dependencies:
 
 ## Quick Start
 
-![An image](../images/gifs/create-project.gif)
-
-1. Install CLI
+**1. Installation**
 
 ```sh
-npm install -g @chitchat/cli
+npm i -g @chitchatjs/cli
 ```
 
-2.  Create a new project
-
-Projects can be created from a prebuilt template. CJS is agnostic of the Node language you use, you can use Typescript or Javascript based templates. You can also install new templates to your cli, check [templates](/guide/templates) section.
+**2. Creating a new project**
 
 ```sh
-cjs new
+cjs new # then choose a starting template
 ```
 
-3. Build the project
-
-Building a project generates all the required artifacts, and the backend infrastructure.
-
-::: warning Caution
-For Typescript projects, make sure you perform `tsc` first.
-:::
+**3. Build the project**
 
 ```sh
-cjs build
+tsc && cjs build # tsc only if it is a typescript project
 ```
 
-4. Deploy
-
-Deploy command deploys the generated project to the chosen platform.
+**4. Deploy**
 
 ```sh
 cjs deploy
 ```
 
-::: tip Note
-Examples below are shown using the Alexa implementation `@chitchatjs/alexa` of the framework.
-:::
+**5. And test..**
 
-## Examples
+You can either go to [Alexa Developer Console](https://developer.amazon.com) and open your skill and then go to the test tab.
+Or you can use [ask dialog command](https://developer.amazon.com/en-US/docs/alexa/smapi/ask-cli-command-reference.html#dialog-command) to test your dialog in CLI itself.
 
-> These are some simple examples. For more end to end examples see [Sample Skills](/alexa/templates).
+```sh
+ask dialog --skill-id <skill-id> --locale en-US --state development
 
-### Hello World
+U> open my skill
+A> hello world!
+```
+
+## Writing a basic skill
+
+To get started, simply write this in your index.ts
 
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
 
-// A sample conversation
-let initialState = ax
-  .start()
-  .block(ax.say("Hello world!"))
-  .build();
-
-// Skill instance that wires everything together
 let skill = ax
-  .skill()
-  .addState(initialState)
+  .start()
+  .block(ax.say("Hello world"))
   .build();
-
-export = ax.dialogManager(skill).exports();
+exports = ax.dialogManager(skill).exports();
 ```
 
-Output:
-
-```
-User: open my skill
-Alexa: Hello world!
-```
-
-### Food Recipe
+Or may be ask user their name and greet them:
 
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
 
-let initialState = ax
+let skill = ax
   .start()
-  .block(ax.ask("Welcome, which food do you want a recipe for?").build())
-  .block(ax.goto("food-recipe"))
-  .build();
-
-let foodRecipeState = ax
-  .state("food-recipe")
   .block(
     ax
       .compound()
-      .add(
-        ax
-          .whenUserSays(["i want a recipe for {food}", "i want {food}"])
-          .then(ax.say("okay here's how you cook {food}.."))
-          .build()
-      )
+      .add(ax.ask("Hello, what is your name?").build()) // welcome message
+      .add(ax.goto("AskName")) // move to the AskName state
       .build()
   )
   .build();
 
-let skill = ax
-  .skill()
-  .addState(initialState)
-  .addState(foodMenuState)
+let askName = ax
+  .state("AskName")
+  .block(
+    ax
+      .whenUserSays(["my name is {name}", "{name}", "name is {name}"])
+      .withSlotType("name", "AMAZON.FirstName")
+      .then(ax.say("Welcome, {name}! It's nice to talk to you."))
+      .build()
+  )
   .build();
 
-export = ax.dialogManager(skill).exports();
+exports = ax.dialogManager(skill).exports();
 ```
 
-Output:
+## Or build and share a new Block and publish it on NPM
 
+```ts
+import { alexa as ax } from "@chitchatjs/alexa";
+
+export namespace greetings {
+  export let greetWithName = () => {
+    return ax
+      .whenUserSays(["my name is {name}", "{name}", "name is {name}"])
+      .withSlotType("name", "AMAZON.FirstName")
+      .then(ax.say("Welcome, {name}! It's nice to talk to you."))
+      .build();
+  };
+}
 ```
-U: open my skill
-A: Welcome, which food do you want a recipe for
-U: i want a recipe for chicken biryani
-A: okay here's how you cook chichen biryani..
+
+## Now, code for our skill will look like
+
+```ts
+import { alexa as ax } from "@chitchatjs/alexa";
+import { greetings as g } from "cjs-greetings";
+
+let skill = ax
+  .start()
+  .block(
+    ax
+      .compound()
+      .add(ax.ask("Hello, what is your name?").build()) // welcome message
+      .add(ax.goto("AskName")) // move to the AskName state
+      .build()
+  )
+  .build();
+
+let askName = ax
+  .state("AskName")
+  .block(g.greetWithName()) // use the block from "cjs-greetings" package.
+  .build();
+
+exports = ax.dialogManager(skill).exports();
 ```
+
+## Packages
+
+1. [chitchat.js core library](https://www.npmjs.com/package/@chitchatjs/core)
+2. [chitchat.js alexa library](https://www.npmjs.com/package/@chitchatjs/alexa)
+3. [chitchat.js cli](https://www.npmjs.com/package/@chitchatjs/cli)
+
+**Sample Skills**
+
+1. [Hello bot](https://github.com/chitchatjs/hello-bot-template)
+2. [Dog Matcher](https://github.com/chitchatjs/pet-match-template)
+3. [High log game](https://github.com/chitchatjs/high-low-game)
+4. [Coffee shop](https://github.com/chitchatjs/coffee-shop)
