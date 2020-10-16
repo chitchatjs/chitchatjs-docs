@@ -57,6 +57,8 @@ Examples below are shown using the Alexa implementation `@chitchatjs/alexa` of t
 
 ## Examples
 
+> These are some simple examples. For more end to end examples see [Sample Skills](/alexa/templates).
+
 ### Hello World
 
 ```ts
@@ -68,8 +70,7 @@ let initialState = ax
   .block(ax.say("Hello world!"))
   .build();
 
-// Skill instance that wires all the
-// everything together
+// Skill instance that wires everything together
 let skill = ax
   .skill()
   .addState(initialState)
@@ -85,38 +86,26 @@ User: open my skill
 Alexa: Hello world!
 ```
 
-### Food Menu
+### Food Recipe
 
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
 
 let initialState = ax
   .start()
-  .block(ax.ask("Welcome, do you want menu for breakfast, lunch or dinner?").build())
-  .block(ax.goto("food-menu"))
+  .block(ax.ask("Welcome, which food do you want a recipe for?").build())
+  .block(ax.goto("food-recipe"))
   .build();
 
-let foodMenuState = ax
-  .state("food-menu")
+let foodRecipeState = ax
+  .state("food-recipe")
   .block(
     ax
       .compound()
       .add(
         ax
-          .whenUserSays(["breakfast", "i want breakfast"])
-          .then(ax.say("okay I have egg omlette for breakfast today."))
-          .build()
-      )
-      .add(
-        ax
-          .whenUserSays(["lunch", "i want lunch"])
-          .then(ax.say("okay I have biryani for lunch today."))
-          .build()
-      )
-      .add(
-        ax
-          .whenUserSays(["dinner", "i want dinner"])
-          .then(ax.say("okay I have chicken curry, roti for dinner today."))
+          .whenUserSays(["i want a recipe for {food}", "i want {food}"])
+          .then(ax.say("okay here's how you cook {food}.."))
           .build()
       )
       .build()
@@ -136,7 +125,7 @@ Output:
 
 ```
 U: open my skill
-A: Welcome, do you want menu for breakfast, lunch or dinner?
-U: lunch
-A: okay I have biryani for lunch today
+A: Welcome, which food do you want a recipe for
+U: i want a recipe for chicken biryani
+A: okay here's how you cook chichen biryani..
 ```

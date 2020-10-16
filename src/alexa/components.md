@@ -39,7 +39,24 @@ skill.addState(dungenState);
 
 One of the states in your `Skill` must start with `ax.start()..`. Think of it as a root state of your skill. This is where `LaunchRequest` is captured when user opens your skill.
 
-## Blocks
+### `ax.compound()`
+
+Compound block allows you to stitch multiple blocks together. It executes all the blocks sequentially and prepares the final response.
+
+```ts
+ax.compound()
+  .add(ax.say("Hello world"))
+  .add(..)
+  .build();
+```
+
+::: warning Caution
+If using multiple blocks that generate the same field in the final response, the last block will overwrite the previous block's response field.
+:::
+
+## Presentation
+
+These blocks allow you to generate a response to the user during runtime.
 
 ### `ax.ask()`
 
@@ -65,19 +82,17 @@ ax.say("Hello!");
 Notice that there is no `.build()` at the end of this block. Some simple blocks don't have `.build()`.
 :::
 
-### `ax.compound()`
+### `ax.end()`
 
-Compound block combines multiple blocks together. It executes all the blocks sequentially and prepares the final response.
+Similar to `ax.start()`, this block handles the `SessionEndedRequest` gracefully. Hence, it is important to add this block in your skill's terminal states.
 
-```ts
-ax.compound()
-  .add(ax.say("Hello world"))
-  .build();
-```
+### `ax.empty()`
 
-::: warning Caution
-If using multiple blocks that generate the same field in the final response, the last block will overwrite the previous block's response field.
-:::
+Sometimes, you may not want to render any response back. This is useful when you want to handle the `SessionEndedRequest` using your own code. You can return this block after implementing your custom code.
+
+## Conditionality
+
+These blocks allow you to wire logic to the user input based on an outcome of a conditional expression.
 
 ### `ax.when()`
 
@@ -130,30 +145,41 @@ ax.whenUserSays(["hello {name}"])
   .build();
 ```
 
-::: warning Caution
-If a slot type is already added elsewhere in the skill before this type, this type will not be injected. To manage types in a better way use the global block `ax.slotType()`.
-:::
+### `ax.whenIntentName()`
 
-### `ax.localize()`
-
-A block to localize the artifacts in your skill, which you can add anywhere in your block tree.
+Another variation of `when` block that gives you a bit more control. You can define your intent outside and use this block to define condition by intent name.
 
 ```ts
-ax.localize([Locale.en_US, Locale.en_CA])
-  .block(
-    // now, info block is localized and
-    // will produce artifacts in both en-US and en-CA locales.
-    ax
-      .info()
-      .name("Hello bot")
-      .build()
-  )
+ax.whenIntentName("HelloAlexaIntent")
+  .then(ax.say("hello!"))
   .build();
 ```
 
-::: tip Note
-`ax.localize()` will have no effect on blocks that are purely to execute run time requests, such as `ax.say(..)`.
-:::
+### `ax.whenMissingSlot()`
+
+By default if user did not speak a slot value, Alexa would not ask them for the value. This block allows us to do that. It's usually used with `ax.whenIntentName()` or `ax.whenUserSays()` blocks.
+
+```ts
+ax.whenMissingSlot("city")
+  .then(ax.ask("which city?").build())
+  .otherwise(ax.ask("ok {city} and how about the date?").build())
+  .build();
+```
+
+## Artifacts
+
+These blocks allow you to generate artifacts such as intents, slots etc within your skill.
+
+### `ax.info()`
+
+Info block allows you to update your skill's details such as its name, invocation name etc. You can simply plug in this block anywhere in your skill and it will inject the specified name in your Skill's manifest and/or in your interaction models.
+
+```ts
+ax.info(Locale.en_US)
+  .name("My Skill")
+  .invocationName("My Skill")
+  .build();
+```
 
 ### `ax.intent()`
 
@@ -190,26 +216,32 @@ ax.slotType()
 By default this block will generate slot type in the `en-US` locale only. Wrap it inside the `ax.localize()` block to generate this slot type in the specific locales.
 :::
 
-### `ax.whenIntentName()`
+## Localization
 
-Another variation of `when` block that gives you a bit more control. You can define your intent outside and use this block to define condition by intent name.
+### `ax.localize()`
+
+A block to localize the artifacts in your skill, which you can add anywhere in your block tree.
 
 ```ts
-ax.whenIntentName("HelloAlexaIntent")
-  .then(ax.say("hello!"))
+ax.localize([Locale.en_US, Locale.en_CA])
+  .block(
+    // now, info block is localized and
+    // will produce artifacts in both en-US and en-CA locales.
+    ax
+      .info()
+      .name("Hello bot")
+      .build()
+  )
   .build();
 ```
 
-### `ax.whenMissingSlot()`
+::: tip Note
+`ax.localize()` will have no effect on blocks that are purely to execute run time requests, such as `ax.say(..)`.
+:::
 
-By default if user did not speak a slot value, Alexa would not ask them for the value. This block allows us to do that. It's usually used with `ax.whenIntentName()` or `ax.whenUserSays()` blocks.
+## State Management
 
-```ts
-ax.whenMissingSlot("name")
-  .then(ax.ask("tell me a name").build())
-  .otherwise(ax.say("ok, you said {name}"))
-  .build();
-```
+These blocks let you manipulate the state during a session.
 
 ### `ax.setStateVar()`
 
@@ -287,24 +319,7 @@ U: why am I in the dungen
 A: because dungen is cool
 ```
 
-### `ax.end()`
-
-Similar to `ax.start()`, this block handles the `SessionEndedRequest` gracefully. Hence, it is important to add this block in your skill's terminal states.
-
-### `ax.empty()`
-
-Sometimes, you may not want to render any response back. This is useful when you want to handle the `SessionEndedRequest` using your own code. You can return this block after implementing your custom code.
-
-### `ax.info()`
-
-Info block allows you to update your skill's details such as its name, invocation name etc. You can simply plug in this block anywhere in your skill and it will inject the specified name in your Skill's manifest and/or in your interaction models.
-
-```ts
-ax.info(Locale.en_US)
-  .name("My Skill")
-  .invocationName("My Skill")
-  .build();
-```
+## Miscellaneous
 
 ### `ax.custom()`
 
