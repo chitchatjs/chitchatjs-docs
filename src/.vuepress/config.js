@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: "Chitchat JS",
+  title: "chitchat.js",
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -45,7 +45,8 @@ module.exports = {
       },
       {
         text: "Slack",
-        link: "https://join.slack.com/t/chitchatjs/shared_invite/zt-i7l6vm0j-F0QPg0DsRSs4NYIEkwJHPA",
+        link:
+          "https://join.slack.com/t/chitchatjs/shared_invite/zt-i7l6vm0j-F0QPg0DsRSs4NYIEkwJHPA",
       },
     ],
     sidebar: [
@@ -59,7 +60,12 @@ module.exports = {
         title: "Alexa",
         collapsable: true,
         sidebarDepth: 2,
-        children: ["/alexa/components", "/alexa/templates", "/alexa/community-blocks", "/alexa/testing"],
+        children: [
+          "/alexa/components",
+          "/alexa/templates",
+          "/alexa/community-blocks",
+          "/alexa/testing",
+        ],
       },
       {
         title: "Advanced",

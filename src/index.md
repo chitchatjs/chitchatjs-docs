@@ -1,6 +1,6 @@
 ---
 home: true
-title: Chitchat JS
+title: chitchat.js
 heroImage: /logo/logo-puzzle.png
 tagline: A framework for building voice driven multi-modal user interfaces easily.
 actionText: Quick Start →
