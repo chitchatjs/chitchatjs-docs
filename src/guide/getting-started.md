@@ -45,7 +45,7 @@ You can either go to [Alexa Developer Console](https://developer.amazon.com) and
 Or you can use [ask dialog command](https://developer.amazon.com/en-US/docs/alexa/smapi/ask-cli-command-reference.html#dialog-command) to test your dialog in CLI itself.
 
 ```sh
-ask dialog --skill-id <skill-id> --locale en-US --state development
+ask dialog --skill-id <skill-id> --locale en-US --stage development
 
 U> open my skill
 A> hello world!

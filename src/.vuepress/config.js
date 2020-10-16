@@ -8,7 +8,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
-  description: "A framework for building multi modal voice interfaces.",
+  description: "An open-source framework for building multi modal voice interfaces.",
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
