@@ -95,7 +95,9 @@ let askName = ax
 exports = ax.dialogManager(skill).exports();
 ```
 
-## Or build and share a new Block and publish it on NPM
+## Writing a reusable Block
+
+A block for greeting with name, that we implemented above in our skill.
 
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
@@ -111,7 +113,11 @@ export namespace greetings {
 }
 ```
 
-## Now, code for our skill will look like
+Now, we can download and use this block in our skill:
+
+```sh
+npm i cjs-greetings --save # assuming we name package as "cjs-greetings"
+```
 
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
@@ -148,3 +154,11 @@ exports = ax.dialogManager(skill).exports();
 2. [Dog Matcher](https://github.com/chitchatjs/pet-match-template)
 3. [High log game](https://github.com/chitchatjs/high-low-game)
 4. [Coffee shop](https://github.com/chitchatjs/coffee-shop)
+
+## Comparison
+
+| Skill         | Standard SDK (code lines) | chitchat.js (code lines) |
+| ------------- | ------------------------- | ------------------------ |
+| Hello World   | 250 lines                 | 80 lines                 |
+| Dog Matcher   | 1000 lines                | 140 lines                |
+| High low game | 400 lines                 | 212 lines                |
