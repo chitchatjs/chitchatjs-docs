@@ -30,9 +30,21 @@ ax.skill()
 Defines a new state in your `Skill`.
 
 ```ts
-let dungenState = ax.state("Dungen").block(ax.say('welcome to the dungen'))build();
+let dungenState = ax.state("Dungen").block(ax.say("welcome to the dungen"));
 
-skill.addState(dungenState);
+skill.addState(dungenState.build());
+```
+
+Every state comes with a default error handling and default fallback layer. Error handling renders a message to the user gracefully when some error occurs. Fallback layer renders a message to the user if there are no matching block found to execute for the input event. You can customize these default behaviors:
+
+```ts
+// Catching an error
+dungenState.catch((c: AlexaDialogContext, e: AlexaEvent, err: Error) => {
+  return ax.say("Dungen is not working correctly right now, please try again.");
+});
+
+// Fallback
+dungenState.fallback(ax.ask("Sorry I didn't understand, please try again").build());
 ```
 
 ### `ax.start()`
