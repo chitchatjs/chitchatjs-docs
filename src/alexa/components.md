@@ -1,6 +1,6 @@
 # Components
 
-With `@chitchatjs/alexa` you get many prebuilt Blocks that you can plug into your skill code. We will use `ax` as a short form of `alexa` below.
+With `@chitchatjs/alexa` you get many prebuilt Building Blocks that you can plug into your skill code. We will use `ax` as a short form of `alexa` below.
 
 ## Core
 
@@ -76,11 +76,24 @@ This block allows you to ask question to the user.
 
 ```ts
 ax.ask("what is your name?").build();
+
 // or
 ax.ask("what is your name?")
   .reprompt("your name please")
   .build();
+
+// or with SSML
+ax.ask(
+  ax
+    .ssml("what is your name?")
+    .effect(ssml.Effect.Whispered)
+    .build()
+)
+  .reprompt("your name please")
+  .build();
 ```
+
+For SSML documentation, check [SSML](/additional-blocks).
 
 ### `ax.say()`
 
@@ -88,7 +101,17 @@ This block allows you to say something back to the user and then close the sessi
 
 ```ts
 ax.say("Hello!");
+
+// or with SSML
+ax.say(
+  ax
+    .ssml("Hello!")
+    .effect(ssml.Effect.Whispered)
+    .build()
+);
 ```
+
+For SSML documentation, check [SSML](/additional-blocks).
 
 ::: tip Tip
 Notice that there is no `.build()` at the end of this block. Some simple blocks don't have `.build()`.

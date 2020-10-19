@@ -6,7 +6,7 @@ Chitchat is designed around three core components:
 
 **State** is a single point-in-time state of a voice application during a dialog between user and agent (a voice enabled virtual assistant system). As user interacts with the application, user events cause the state to change. In CJS, State is a collection of actions application might at a specific point in time. For example - "Food ordering" might be a state where you might handle all food ordering related events from the user.
 
-## 2. Block
+## 2. Building Block
 
 **Blocks** (or Building Blocks) define what the agent would do during a certain state. On a high level, a Block defines two behaviors - 1. how to contribute to the application during the build process, such as generating specific artifacts and 2. how to help application generate a response back to the user. It does so by implementing these two interfaces:
 

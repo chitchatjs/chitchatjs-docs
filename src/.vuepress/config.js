@@ -63,7 +63,7 @@ module.exports = {
         children: [
           "/alexa/components",
           "/alexa/templates",
-          "/alexa/community-blocks",
+          "/alexa/additional-blocks",
           "/alexa/testing",
         ],
       },
