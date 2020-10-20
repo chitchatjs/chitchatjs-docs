@@ -255,7 +255,9 @@ By default this block will generate slot type in the `en-US` locale only. Wrap i
 
 ### `ax.localize()`
 
-A block to localize the artifacts in your skill, which you can add anywhere in your block tree.
+A block to localize the building blocks in your skill, which you can add anywhere in your block tree.
+
+Localize generated artifacts:
 
 ```ts
 ax.localize([Locale.en_US, Locale.en_CA])
@@ -270,9 +272,15 @@ ax.localize([Locale.en_US, Locale.en_CA])
   .build();
 ```
 
-::: tip Note
-`ax.localize()` will have no effect on blocks that are purely to execute run time requests, such as `ax.say(..)`.
-:::
+Localize runtime outputs <Badge text="coming soon" /><Badge text="0.3.0+" type="error" />
+
+```ts
+ax.localize([Locale.en_US, Locale.en_CA])
+  .block(ax.say("hello!")) // will be considered only if input locale matches en-US or en-CA
+  .build();
+```
+
+It also works on `ax.ask()` and `ax.directive()` building blocks as well.
 
 ## State Management
 

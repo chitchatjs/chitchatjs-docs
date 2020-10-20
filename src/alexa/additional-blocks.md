@@ -1,6 +1,6 @@
 # Additional Building Blocks
 
-## `ax.ssml()` <Badge text="coming soon" /><Badge text="0.3.0" type="error" />
+## `ax.ssml()` <Badge text="coming soon" /><Badge text="0.3.0+" type="error" />
 
 You can use `ax.ssml()` building block to build SSML (Speech Synthesis Markup Language) output speech. Learn about [SSML primitives here](https://developer.amazon.com/en-US/docs/alexa/custom-skills/speech-synthesis-markup-language-ssml-reference.html).
 

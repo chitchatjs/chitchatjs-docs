@@ -95,9 +95,9 @@ let askName = ax
 exports = ax.dialogManager(skill).exports();
 ```
 
-## Writing a reusable Block
+## Writing a reusable Building Block
 
-A block for greeting with name, that we implemented above in our skill.
+A building block for greeting with name, that we implemented above in our skill.
 
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
