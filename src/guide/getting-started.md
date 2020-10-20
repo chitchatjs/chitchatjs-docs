@@ -75,6 +75,13 @@ let skill = ax
   .block(
     ax
       .compound()
+      .add(
+        ax
+          .info()
+          .name("My Skill")
+          .invocationName("my skill")
+          .build()
+      ) // set invocation name
       .add(ax.ask("Hello, what is your name?").build()) // welcome message
       .add(ax.goto("AskName")) // move to the AskName state
       .build()
