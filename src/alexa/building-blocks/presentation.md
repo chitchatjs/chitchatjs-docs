@@ -1,4 +1,61 @@
-# Additional Building Blocks
+# Presentation
+
+These blocks allow you to generate a response to the user during runtime.
+
+## `ax.ask()`
+
+This block allows you to ask question to the user.
+
+```ts
+ax.ask("what is your name?").build();
+
+// or
+ax.ask("what is your name?")
+  .reprompt("your name please")
+  .build();
+
+// or with SSML
+ax.ask(
+  ax
+    .ssml("what is your name?")
+    .effect(ssml.Effect.Whispered)
+    .build()
+)
+  .reprompt("your name please")
+  .build();
+```
+
+For SSML documentation, check [SSML](/additional-blocks).
+
+## `ax.say()`
+
+This block allows you to say something back to the user and then close the session.
+
+```ts
+ax.say("Hello!");
+
+// or with SSML
+ax.say(
+  ax
+    .ssml("Hello!")
+    .effect(ssml.Effect.Whispered)
+    .build()
+);
+```
+
+For SSML documentation, check [SSML](/additional-blocks).
+
+::: tip Tip
+Notice that there is no `.build()` at the end of this block. Some simple blocks don't have `.build()`.
+:::
+
+## `ax.end()`
+
+Similar to `ax.start()`, this block handles the `SessionEndedRequest` gracefully. Hence, it is important to add this block in your skill's terminal states.
+
+## `ax.empty()`
+
+Sometimes, you may not want to render any response back. This is useful when you want to handle the `SessionEndedRequest` using your own code. You can return this block after implementing your custom code.
 
 ## `ax.ssml()` <Badge text="coming soon" /><Badge text="0.3.0+" type="error" />
 
