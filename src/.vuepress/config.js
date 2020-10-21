@@ -23,7 +23,7 @@ module.exports = {
       "meta",
       { name: "google-site-verification", content: "umF5IWhr5QTGTFX3oDDRKdX0_CvbXMhNOLsGL1z0OTI" },
     ],
-    [("link", { rel: "icon", href: "/logo/64x64.png" })],
+    ["link", { rel: "icon", href: "/logo/64x64.png" }],
   ],
 
   /**
@@ -119,7 +119,7 @@ module.exports = {
          * @sitemap
          * Optional, by default: sitemap.xml
          */
-        // sitemap: "/sitemap.xml",
+        sitemap: "/sitemap.xml",
       },
     ],
     [
