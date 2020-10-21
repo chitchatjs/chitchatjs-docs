@@ -1,17 +1,17 @@
 ---
 home: true
-title: chitchat.js
+heroText: chitchat.js
 heroImage: /logo/logo-puzzle.png
-tagline: An open-source framework for building voice driven multi-modal user interfaces easily.
+tagline: An open-source framework for building voice user interfaces for Alexa Skills easily.
 actionText: Quick Start →
 actionLink: /guide/getting-started
 features:
   - title: Simplicity
-    details: Write your entire Alexa skill (or Google Agent or any other chatbot) using Typescript or Javascript in a declarative style. Build on what you know already.
+    details: Write your entire Alexa skill using Typescript or Javascript in a declarative style. Build on what you know already.
   - title: Pluggable Design
-    details: Do more with fewer lines of code. Framework helps you design your experience using Blocks.
+    details: Do more with fewer lines of code. Framework helps you design your experience using Building Blocks.
   - title: Community
-    details: Find and share reusable Blocks and enrich the experience even further.
+    details: Find and share reusable Building Blocks and enrich the experience even further.
   # - title: Testing
   #   details: A native model based testing to cover all your dialog paths with significantly less lines of code.
   # - title: Playground

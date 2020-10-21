@@ -8,7 +8,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
-  description: "An open-source framework for building multi modal voice interfaces.",
+  description: "An open-source framework for building voice interfaces for Alexa Skills easily.",
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -89,5 +89,36 @@ module.exports = {
     "@vuepress/plugin-back-to-top",
     "@vuepress/plugin-medium-zoom",
     ["@vuepress/google-analytics", { ga: "UA-180195687-1" }],
+    [
+      "robots",
+      {
+        /**
+         * @host
+         * Mandatory, You have to provide the host URL
+         */
+        host: "https://chitchat.js.org",
+        /**
+         * @disallowAll
+         * Optional: if it's true, all others options are ignored and exclude all robots from the entire server
+         */
+        disallowAll: false,
+        /**
+         * @allowAll
+         * Optional: if it's true and @disallowAll is false, all others options are ignored and allow all robots complete access
+         */
+        allowAll: true,
+        /**
+         * @sitemap
+         * Optional, by default: sitemap.xml
+         */
+        // sitemap: "/sitemap.xml",
+      },
+    ],
+    [
+      "sitemap",
+      {
+        hostname: "https://chitchat.js.org",
+      },
+    ],
   ],
 };

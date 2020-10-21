@@ -17,5 +17,9 @@
     "devDependencies": {
         "@vuepress/plugin-google-analytics": "^1.6.0",
         "vuepress": "^1.5.3"
+    },
+    "dependencies": {
+        "vuepress-plugin-robots": "^1.0.1",
+        "vuepress-plugin-sitemap": "^2.3.1"
     }
 }
