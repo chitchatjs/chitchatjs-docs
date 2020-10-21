@@ -45,12 +45,16 @@ module.exports = {
       },
       {
         text: "Alexa",
-        link: "/alexa/components",
+        link: "/alexa/overview",
       },
       {
-        text: "Slack",
+        text: "Plugins",
+        link: "/alexa/ax-kit",
+      },
+      {
+        text: "Chat on Gitter",
         link:
-          "https://join.slack.com/t/chitchatjs/shared_invite/zt-i7l6vm0j-F0QPg0DsRSs4NYIEkwJHPA",
+          "https://gitter.im/chitchat-js/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link",
       },
     ],
     sidebar: [
