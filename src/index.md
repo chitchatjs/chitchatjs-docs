@@ -33,6 +33,6 @@ footer: Made by Kevindra Singh with ❤️
 }
 </style>
 
-<img src="./images/gifs/create-project.gif" alt="Demo GIF" style="display: block;  margin-left: auto;  margin-right: auto;">
+<img src="./images/gifs/create-project-1.gif" alt="Demo GIF" style="display: block;  margin-left: auto;  margin-right: auto;">
 
 ---
