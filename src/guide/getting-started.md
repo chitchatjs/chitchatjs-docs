@@ -78,10 +78,17 @@ To get started, simply write this in your index.ts
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
 
-let skill = ax
+let state = ax
   .start()
   .block(ax.say("Hello world"))
   .build();
+
+// create our skill using the state above
+let skill = ax
+  .skill()
+  .addState(state)
+  .build();
+
 exports = ax.dialogManager(skill).exports();
 ```
 
@@ -90,33 +97,27 @@ Above would render "Hello world" speech for every request user makes. Let's add 
 ```ts
 import { alexa as ax } from "@chitchatjs/alexa";
 
-let skill = ax
+let state = ax
   .start()
   .block(
     ax
       .compound()
       // welcome message
       .add(ax.ask("Hello, what is your name?").build())
-      // move to a new AskName state
-      .add(ax.goto("AskName"))
+      .add(
+        // simple!
+        ax
+          .whenUserSays(["my name is {name}", "{name}", "name is {name}"])
+          .withSlotType("name", "AMAZON.FirstName")
+          // {name} allows automatic slot resolution
+          .then(ax.say("Welcome, {name}! It's nice to talk to you."))
+          .build()
+      )
       .build()
   )
   .build();
 
-let askName = ax
-  .state("AskName")
-  .block(
-    // simple!
-    ax
-      .whenUserSays(["my name is {name}", "{name}", "name is {name}"])
-      .withSlotType("name", "AMAZON.FirstName")
-      // {name} allows automatic slot resolution
-      .then(ax.say("Welcome, {name}! It's nice to talk to you."))
-      .build()
-  )
-  .build();
-
-exports = ax.dialogManager(skill).exports();
+...
 ```
 
 ## Writing a reusable Building Block
@@ -143,25 +144,31 @@ Now, we can simply plug it into our skill:
 import { alexa as ax } from "@chitchatjs/alexa";
 import { greetings as g } from "./greetings";
 
-let skill = ax
+let state = ax
   .start()
   .block(
     ax
       .compound()
-      .add(ax.ask("Hello, what is your name?").build()) // welcome message
-      .add(ax.goto("AskName")) // move to the AskName state
+      // welcome message
+      .add(ax.ask("Hello, what is your name?").build())
+      // plugin our component here
+      .add(g.greetWithName())
       .build()
   )
   .build();
 
-let askName = ax
-  .state("AskName")
-  // use the block from "./greetings" file.
-  .block(g.greetWithName())
-  .build();
-
-exports = ax.dialogManager(skill).exports();
+...
 ```
+
+Then,
+
+```sh
+> tsc
+> cjs build
+> cjs deploy
+```
+
+That's it!
 
 ## Packages
 
