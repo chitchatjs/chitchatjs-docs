@@ -12,8 +12,8 @@ Before you publish, make sure that the name is following `chitchatjs-plugin-xxxx
 
 Update the [community plugin list](/plugins/community).
 
-- Go to https://github.com/chitchatjs/chitchatjs-docs
-- Edit the community page and
+- Go to [Chitchat Community Plugin List Page source](https://github.com/chitchatjs/chitchatjs-docs/blob/main/src/plugins/community.md)
+- Edit and add your plugin in the list
 - Submit a pull request
 
 🎉
