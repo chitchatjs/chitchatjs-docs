@@ -49,7 +49,7 @@ module.exports = {
       },
       {
         text: "Plugins",
-        link: "/alexa/ax-kit",
+        link: "/plugins/overview",
       },
       {
         text: "Chat on Gitter",
@@ -65,7 +65,7 @@ module.exports = {
         children: ["/guide/getting-started", "/guide/concepts", "/guide/directory-structure"],
       },
       {
-        title: "Alexa Building Blocks",
+        title: "Alexa",
         collapsable: true,
         sidebarDepth: 2,
         children: [
@@ -79,7 +79,18 @@ module.exports = {
           "/alexa/building-blocks/miscellaneous",
           "/alexa/templates",
           "/alexa/testing",
-          "/alexa/ax-kit",
+        ],
+      },
+      {
+        title: "Plugins",
+        collapsable: true,
+        sidebarDepth: 2,
+        children: [
+          "/plugins/overview",
+          "/plugins/using",
+          "/plugins/writing",
+          "/plugins/publishing",
+          "/plugins/community",
         ],
       },
       {
