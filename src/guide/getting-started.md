@@ -183,6 +183,10 @@ That's it!
 3. [High log game](https://github.com/chitchatjs/high-low-game)
 4. [Coffee shop](https://github.com/chitchatjs/coffee-shop)
 
+**Plugins**
+
+1. [@chitchatjs/plugin-ax-kit](https://www.npmjs.com/package/@chitchatjs/plugin-ax-kit)
+
 ## Comparison
 
 | Skill         | Standard SDK (code lines) | chitchat.js (code lines) |
