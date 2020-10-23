@@ -61,7 +61,7 @@ module.exports = {
       {
         title: "Basics",
         collapsable: true,
-        sidebarDepth: 2,
+        sidebarDepth: 1,
         children: ["/guide/getting-started", "/guide/concepts", "/guide/directory-structure"],
       },
       {
@@ -84,7 +84,7 @@ module.exports = {
       {
         title: "Plugins",
         collapsable: true,
-        sidebarDepth: 2,
+        sidebarDepth: 1,
         children: [
           "/plugins/overview",
           "/plugins/using",
