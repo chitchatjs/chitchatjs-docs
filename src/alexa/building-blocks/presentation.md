@@ -1,4 +1,4 @@
-# Presentation
+# Presentation - Alexa Building Blocks
 
 These blocks allow you to generate a response to the user during runtime.
 
@@ -48,6 +48,16 @@ For SSML documentation, check [SSML](/additional-blocks).
 ::: tip Tip
 Notice that there is no `.build()` at the end of this block. Some simple blocks don't have `.build()`.
 :::
+
+## `ax.directive()`
+
+This block allows you to return a raw directive back.
+
+```ts
+ax.directive({
+  /** directive object */
+});
+```
 
 ## `ax.end()`
 

@@ -1,4 +1,4 @@
-# Core
+# Core - Alexa Building Blocks
 
 ## `ax.dialogManager()`
 

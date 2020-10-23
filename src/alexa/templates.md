@@ -1,4 +1,4 @@
-# Sample Skills
+# Sample Alexa Skills
 
 You can bootstrap your projects using external templates. Some of the existing templates:
 

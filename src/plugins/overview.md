@@ -1,4 +1,6 @@
-# Plugins <Badge text="new" />
+# Plugins
+
+<Badge text="new" />
 
 Plugins are a great way to enrich your development and reuse as much as possible. Plugins are components that expose more building blocks than what platform provides. They may be higher level conversational constructs such as _"greeting a good morning"_ or a lower level construct such as a rich APL template home screen building block.
 

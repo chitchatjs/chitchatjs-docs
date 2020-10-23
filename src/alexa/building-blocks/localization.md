@@ -1,4 +1,4 @@
-# Localization
+# Localization - Alexa Building Blocks
 
 ## `ax.localize()`
 

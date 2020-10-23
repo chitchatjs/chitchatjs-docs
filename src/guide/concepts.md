@@ -1,4 +1,4 @@
-# Concepts
+# Core Concepts
 
 Chitchat is designed around three core components:
 

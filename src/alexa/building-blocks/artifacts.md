@@ -1,4 +1,4 @@
-# Artifacts
+# Artifacts - Alexa Building Blocks
 
 These blocks allow you to generate artifacts such as intents, slots etc within your skill.
 

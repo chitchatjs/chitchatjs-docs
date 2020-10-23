@@ -2,7 +2,6 @@
 home: true
 heroText: chitchat.js
 heroImage: /logo/logo-puzzle.png
-tagline: An open-source framework for building voice user interfaces for Alexa Skills easily.
 actionText: Quick Start →
 actionLink: /guide/getting-started
 features:
