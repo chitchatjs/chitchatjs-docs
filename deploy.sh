@@ -9,6 +9,9 @@ npm run build
 # Copy the JS.ORG CNAME
 cp CNAME src/.vuepress/dist
 
+# Replace the home page title - SEO
+sed -i 's/<title>chitchat.js<\/title>/<title>chitchat.js | Voice Apps Framework for Alexa.<\/title>/g' src/.vuepress/dist/index.html
+
 # navigate into the build output directory
 cd src/.vuepress/dist
 
