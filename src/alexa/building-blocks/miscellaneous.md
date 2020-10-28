@@ -1,5 +1,23 @@
 # Miscellaneous - Alexa Building Blocks
 
+## `ax.run()`
+
+A block that allows you to dynamically return a block during build time or runtime or both.
+
+```ts
+ax.run()
+  .executor((c: AlexaDialogContext, e: AlexaEvent) => {
+    return ax.say("Hello!");
+  })
+  .builder((c: AlexaBuilderContext) => {
+    return ax
+      .intent("HelloIntent")
+      .samples(["hello"])
+      .build();
+  })
+  .build();
+```
+
 ## `ax.custom()`
 
 Custom block gives your full control in how you want to handle the resource generation and request handling yourself.

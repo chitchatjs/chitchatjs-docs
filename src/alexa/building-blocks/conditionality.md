@@ -23,9 +23,20 @@ Optionally, you can also use `.otherwise(..)` to wire a Block when condition doe
 whenBlock.otherwise(ax.say("This is not an intent request"));
 ```
 
+## `ax.whenLaunch()`
+
+A simple `when` block that checks if skill received a launch request.
+
+```ts
+ax.whenLaunch()
+  .then(ax.say("It's a launch request."))
+  .otherwise(ax.say("It's not a launch request."))
+  .build();
+```
+
 ## `ax.whenUserSays()`
 
-A much simple `when` block that only checks if user said a specific utterance.
+A simple `when` block that only checks if user said a specific utterance.
 
 ```ts
 ax.whenUserSays(["hello alexa"])
