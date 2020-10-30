@@ -37,43 +37,19 @@ export default ax
 
 ## Option 2: Build from scratch
 
-This provides you more control as you can do more.
-
-Create a class in `WeatherBlockBuilder.ts`
+Building from scratch is also super easy. You can provider a `builder` or an `executor` or both. Builder builds the artifacts during build time and executor executes the user request.
 
 ```ts
-import { AskSpeechBlock, WhenBlock } from "@chitchatjs/core";
-
-interface WeatherBlock extends AlexaBlock {
-  type: "WeatherBlock";
-}
-
-export class WeatherBlockBuilder {
-  build(): WeatherBlock {
-    return {
-      type: "WeatherBlock",
-      execute: this._executor,
-      build: this._builder,
-    };
-  }
-
-  /**
-   * This is where you will handle the runtime request and modify the response.
-   */
-  private _executor = (context: AlexaDialogContext, event: AlexaEvent): void => {};
-
-  /**
-   * This is where you will handle compilation/build
-   * and generate artifacts such as intents, slots etc.
-   */
-  private _builder = (context: AlexaBuilderContext) => {};
-}
-```
-
-then in `index.ts` export:
-
-```ts
-export default () => {
-  return new WeatherBlockBuilder();
-};
+export default ax
+  .custom()
+  .builder((c: AlexaBuilderContext) => {
+    // specify how this plugin will update the builder context.
+  })
+  .executor((c: AlexaDialogContext, e: AlexaEvent) => {
+    // specify what this plugin would do in the run time.
+    let res = ResponseFactory.init();
+    res.speak("weather is nice");
+    c.currentResponse = res;
+  })
+  .build();
 ```

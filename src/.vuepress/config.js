@@ -67,7 +67,7 @@ module.exports = {
       {
         title: "Alexa",
         collapsable: true,
-        sidebarDepth: 2,
+        sidebarDepth: 1,
         children: [
           "/alexa/overview",
           ["/alexa/building-blocks/core", "Core"],

@@ -6,61 +6,36 @@ Plugins are a great way to enrich your development and reuse as much as possible
 
 ## Platform Developed
 
-- `@chitchatjs/alexa` comes with a large set of [building blocks](/building-blocks/core).
-- `@chitchatjs/plugin-ax-kit` library contains reusable conversational building blocks which use the building blocks from the `@chitchatjs/alexa` library.
+- [@chitchatjs/alexa](https://www.npmjs.com/package/@chitchatjs/alexa) - 🔥 Core Alexa building blocks library.
+- [@chitchatjs/plugin-ax-common](https://www.npmjs.com/package/@chitchatjs/plugin-ax-common) - 👋 A library of some common building blocks such as fallback, stop, help handlers.
+- [@chitchatjs/plugin-ax-session](https://www.npmjs.com/package/@chitchatjs/plugin-ax-session) - 👋 A library of session management building blocks that allow you to manipulate and customize session.
+- [@chitchatjs/plugin-ax-display](https://www.npmjs.com/package/@chitchatjs/plugin-ax-display) - 👋 A library of display related building blocks, prebuilt APL layouts and more.
 
 ## Examples
 
-Some examples from `@chitchatjs/plugin-ax-kit`:
-
-### Greetings
-
-#### `axkit.greet.hello()`
-
-Greets users when they say "hello" or similar utterances.
-
 ```ts
-axkit.greet.hello();
+import { ax } from "@chitchatjs/alexa";
+import { common } from "@chitchatjs/plugin-ax-common";
 
-// or
-axkit.greet.hello("hello there!");
-
-// or
-axkit.greet.hello("hello there!", [Locale.en_US, Locale.en_GB]);
+ax.compound()
+  .add(
+    ax
+      .whenLaunch()
+      .then(ax.say("Hello world!"))
+      .build()
+  )
+  // automatically add help, stop, fallback handlers
+  .add(common.defaultHandlers())
+  .build();
 ```
 
-#### `axkit.greet.about()`
-
-Answers when users ask the Alexa Skill who/what it is.
+or customize
 
 ```ts
-axkit.greet.about(); // renders "I'm an Alexa skill"
-
-// or
-axkit.greet.about("I'm a custom skill");
-
-// or
-axkit.greet.about("I'm a custom skill in en-US and en-GB", [Locale.en_US, Locale.en_GB]);
-```
-
-#### `axkit.greet.bye()`
-
-Greets user when they say "bye" or similar utterances.
-
-```ts
-axkit.greet.bye();
-
-// or
-axkit.greet.bye("good bye!");
-
-// or
-axkit.greet.bye("good bye!", [Locale.en_US, Locale.en_GB]);
-```
-
-#### `More ..`
-
-```ts
-axkit.builtin.help(..)
-axkit.builtin.stop(..)
-axkit.builtin.fallback(..)
+common.defaultHandlers({
+  help: ax
+    .ask("You can ask me a number, I will say that number back.")
+    .reprompt("What is your number?")
+    .build(),
+});
 ```
