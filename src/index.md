@@ -30,14 +30,22 @@ footer: Made by Kevindra Singh with ❤️
   display: table;
   clear: both;
 }
+
+/* div, iframe {
+    width: 100px;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #777;
+} */
+
+iframe {
+    display: block;
+    margin: 0 auto;
+    border-style:none;
+}
 </style>
 
----
-
-<h3 align="center">Quick Look</h3>
-<img src="./images/gifs/create-project-1.gif" alt="Demo GIF" style="display: block;  margin-left: auto;  margin-right: auto;">
-
-<h3 align="center">Get Started</h3>
+<h2 align="center">Get Started</h2>
 
 ```sh
 # Install the CLI
@@ -47,3 +55,9 @@ footer: Made by Kevindra Singh with ❤️
 ```
 
 For more, check out the [guide](/guide/getting-started). :tada:
+
+<h2 align="center">Quick Look and Demo</h2>
+
+<iframe width="500" align="center" height="315" src="https://www.youtube.com/embed/sUTapJBTZaY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<br/>
+<iframe width="500" height="315" align="center" src="https://www.youtube.com/embed/XK7kA77JPuk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

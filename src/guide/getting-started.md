@@ -71,6 +71,16 @@ U> open my skill
 A> hello world!
 ```
 
+## Quick Look and Demo
+
+<br/>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sUTapJBTZaY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<br/>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XK7kA77JPuk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 ## Writing a basic skill
 
 To get started, simply write this in your index.ts
@@ -182,10 +192,14 @@ That's it!
 2. [Dog Matcher](https://github.com/chitchatjs/pet-match-template)
 3. [High log game](https://github.com/chitchatjs/high-low-game)
 4. [Coffee shop](https://github.com/chitchatjs/coffee-shop)
+5. [Workout Buddy](https://github.com/chitchatjs/workout-buddy)
 
 **Plugins**
 
-1. [@chitchatjs/plugin-ax-kit](https://www.npmjs.com/package/@chitchatjs/plugin-ax-kit)
+1. [@chitchatjs/alexa](https://www.npmjs.com/package/@chitchatjs/alexa)
+2. [@chitchatjs/plugin-ax-common](https://www.npmjs.com/package/@chitchatjs/plugin-ax-common)
+3. [@chitchatjs/plugin-ax-session](https://www.npmjs.com/package/@chitchatjs/plugin-ax-session)
+4. [@chitchatjs/plugin-ax-display](https://www.npmjs.com/package/@chitchatjs/plugin-ax-display)
 
 ## Comparison
 
