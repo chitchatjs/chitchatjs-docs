@@ -1,33 +1,14 @@
 # Miscellaneous - Alexa Building Blocks
 
-## `ax.run()`
-
-A block that allows you to dynamically return a block during build time or runtime or both.
-
-```ts
-ax.run()
-  .executor((c: AlexaDialogContext, e: AlexaEvent) => {
-    return ax.say("Hello!");
-  })
-  .builder((c: AlexaBuilderContext) => {
-    return ax
-      .intent("HelloIntent")
-      .samples(["hello"])
-      .build();
-  })
-  .build();
-```
-
 ## `ax.custom()`
 
-Custom block gives your full control in how you want to handle the resource generation and request handling yourself.
+Custom block gives your full control in how you want to handle the resource generation and request handling yourself. You can run a custom code and then return a block or you can simply update the context after running your code. Custom block has two methods you can hook your code into - `executor` and `builder`. Executor allows you to handle runtime request and Builder allows you to handle the resource generation. You can choose to implement either one of them or both.
 
 ```ts
 ax.custom()
-  .executor((c: AlexaDialogContext, e: AlexaEvent) => {
-    let res = ResponseFactory.init();
-    res.speak("I'm speaking this from a custom block.");
-    return res.getResponse();
+  .executor(async (c: AlexaDialogContext, e: AlexaEvent) => {
+    const userName = await myapi.getUserName(c);
+    return ax.say(`Hello, ${userName}. I'm speaking this from a custom block.`);
   })
   .build();
 ```
@@ -36,23 +17,15 @@ Output:
 
 ```
 ..
-A: I'm speaking this from a custom block.
+A: Hello, Kevindra. I'm speaking this from a custom block.
 ```
 
-Sometimes you also want to manually handle the Interaction Models, Skill Manifest and other resources yourself. `ax.custom()` block allows you to do that as well. You can set a resource using the [Skill Package path](https://developer.amazon.com/en-US/docs/alexa/smapi/skill-package-api-reference.html) of the resource.
+Sometimes you may also want to manually generate part of the resources such as Interaction Model, Skill Manifest etc yourself. `ax.custom()` block allows you to do that as well. You can set a resource using the [Skill Package path](https://developer.amazon.com/en-US/docs/alexa/smapi/skill-package-api-reference.html) of the resource.
 
 ```ts
 ax.custom()
   .builder((c: AlexaBuilderContext) => {
-    return {
-      resourceMap: {
-        "/skill.json": mySkillManifest,
-      },
-    };
+    c.resources.resourceMap["/skill.json"] = mySkillManifest;
   })
   .build();
 ```
-
-::: tip
-Returning `resourceMap` or `Response` from the `custom` block performs a merge with the already generated artifacts and response from other blocks.
-:::
