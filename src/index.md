@@ -58,6 +58,6 @@ For more, check out the [guide](/guide/getting-started). :tada:
 
 <h2 align="center">Quick Look and Demo</h2>
 
-<iframe width="500" align="center" height="315" src="https://www.youtube.com/embed/sUTapJBTZaY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="300" align="center" height="200" src="https://www.youtube.com/embed/-1Qwf7E8e-M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 <br/>
-<iframe width="500" height="315" align="center" src="https://www.youtube.com/embed/XK7kA77JPuk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

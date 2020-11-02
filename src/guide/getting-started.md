@@ -71,15 +71,14 @@ U> open my skill
 A> hello world!
 ```
 
-## Quick Look and Demo
+## Demo and Tutorials
 
 <br/>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/sUTapJBTZaY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-1Qwf7E8e-M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <br/>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/XK7kA77JPuk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<br/>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w2IAhEcGS4Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Writing a basic skill
 
