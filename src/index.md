@@ -16,7 +16,7 @@ features:
   - title: Testing
     details: Use your existing technologies to test the code.
   - title: Community
-    details: Find and share reusable Building Blocks and enrich the experience even further.
+    details: Use, create or share Building Blocks and enrich the experience even further.
 footer: Made by Kevindra Singh with ❤️
 ---
 
