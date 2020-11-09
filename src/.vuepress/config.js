@@ -8,7 +8,8 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
-  description: "An open-source framework for building voice interfaces for Alexa Skills easily.",
+  description:
+    "An open-source framework for building voice interfaces for Alexa Skills easily.",
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -21,7 +22,10 @@ module.exports = {
     ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }],
     [
       "meta",
-      { name: "google-site-verification", content: "umF5IWhr5QTGTFX3oDDRKdX0_CvbXMhNOLsGL1z0OTI" },
+      {
+        name: "google-site-verification",
+        content: "umF5IWhr5QTGTFX3oDDRKdX0_CvbXMhNOLsGL1z0OTI",
+      },
     ],
     ["link", { rel: "icon", href: "/logo/64x64.png" }],
   ],
@@ -62,7 +66,7 @@ module.exports = {
         title: "Basics",
         collapsable: true,
         sidebarDepth: 1,
-        children: ["/guide/getting-started", "/guide/concepts", "/guide/directory-structure"],
+        children: ["/guide/getting-started", "/guide/concepts"],
       },
       {
         title: "Alexa",
@@ -70,6 +74,7 @@ module.exports = {
         sidebarDepth: 1,
         children: [
           "/alexa/overview",
+          "/alexa/configuration",
           ["/alexa/building-blocks/core", "Core"],
           ["/alexa/building-blocks/presentation", "Presentation"],
           ["/alexa/building-blocks/conditionality", "Conditionality"],
@@ -92,11 +97,6 @@ module.exports = {
           "/plugins/publishing",
           "/plugins/community",
         ],
-      },
-      {
-        title: "Advanced",
-        collapsable: true,
-        children: ["/advanced/dialog-manager", "/advanced/dialog-engine"],
       },
     ],
   },
@@ -137,6 +137,31 @@ module.exports = {
       "sitemap",
       {
         hostname: "https://chitchat.js.org",
+      },
+    ],
+    [
+      "vuepress-plugin-seo",
+      {
+        siteTitle: (_, $site) => "Chitchat.js | Build Voice Apps for Alexa.",
+        title: ($page) => $page.title + " | Build Voice Apps for Alexa.",
+        description: ($page) => $page.frontmatter.description,
+        author: (_, $site) => $site.themeConfig.author,
+        tags: ($page) => $page.frontmatter.tags,
+        twitterCard: (_) => "summary_large_image",
+        type: ($page) =>
+          ["articles", "posts", "blog"].some((folder) =>
+            $page.regularPath.startsWith("/" + folder)
+          )
+            ? "article"
+            : "website",
+        url: (_, $site, path) => ($site.themeConfig.domain || "") + path,
+        image: ($page, $site) =>
+          $page.frontmatter.image &&
+          (($site.themeConfig.domain && !$page.frontmatter.image.startsWith("http")) ||
+            "") + $page.frontmatter.image,
+        publishedAt: ($page) =>
+          $page.frontmatter.date && new Date($page.frontmatter.date),
+        modifiedAt: ($page) => $page.lastUpdated && new Date($page.lastUpdated),
       },
     ],
   ],

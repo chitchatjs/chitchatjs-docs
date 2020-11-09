@@ -44,12 +44,18 @@ export default ax
   .custom()
   .builder((c: AlexaBuilderContext) => {
     // specify how this plugin will update the builder context.
+    return ax.intent("WeatherIntent", ["how is the weather"]).build();
   })
   .executor((c: AlexaDialogContext, e: AlexaEvent) => {
     // specify what this plugin would do in the run time.
+
+    // 1. manipulate the response manually
     let res = ResponseFactory.init();
     res.speak("weather is nice");
     c.currentResponse = res;
+
+    // 2. or use existing building block:
+    return ax.say("weather is nice");
   })
   .build();
 ```

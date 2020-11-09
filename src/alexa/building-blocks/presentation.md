@@ -67,43 +67,9 @@ Similar to `ax.start()`, this block handles the `SessionEndedRequest` gracefully
 
 Sometimes, you may not want to render any response back. This is useful when you want to handle the `SessionEndedRequest` using your own code. You can return this block after implementing your custom code.
 
-## `ax.ssml()` <Badge text="new" /><Badge text="0.3.0+" type="error" />
+## `ax.ssml()`
 
 You can use `ax.ssml()` building block to build SSML (Speech Synthesis Markup Language) output speech. Learn about [SSML primitives here](https://developer.amazon.com/en-US/docs/alexa/custom-skills/speech-synthesis-markup-language-ssml-reference.html).
-
-**Example**
-
-```ts
-ax.say(
-  ax
-    .ssml(
-      ax
-        .ssml("Five seconds till lift off!")
-        .append(
-          ax
-            .ssml("54321")
-            .sayAs(ssml.Interpreter.digits)
-            .build()
-        )
-        .append(ax.ssml("Lift off!").build())
-        .build()
-    )
-    .emotion(ssml.Emotion.excited, ssml.Intensity.medium)
-    .build()
-);
-```
-
-Produces:
-
-```xml
-<speak>
-    <amazon:emotion name="excited" intensity="medium">
-        Five seconds till lift off!
-        <say-as interpret-as="digits">54321</say-as>.
-        Lift off!
-    </amazon:emotion>
-</speak>
-```
 
 ### `.voice()`
 

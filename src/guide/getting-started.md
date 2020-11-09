@@ -1,28 +1,10 @@
 # Getting Started
 
-## What is chitchat.js? <Badge text="beta" />
+## What is chitchat.js?
 
 Chitchat.js (or CJS) is a framework for building voice driven multi-modal user interfaces (a.k.a. VUI). Chitchat is designed to be incrementally adaptable. Chitchat comes with three primary components - core library (`@chichatjs/core`), a CLI (`@chitchatjs/cli`) and the implementation strategies (dialog management) which may or may not be platform dependent. It offers `@chitchatjs/alexa` to seamlessly integrate your voice user interface with Alexa.
 
 `@chichatjs/core` is a primitive base that defines core framework premitives that are voice-platform and dialog management strategy agnostic. `@chitchatjs/cli` provides an easy command access to create a project, build and deploy it (only supported for Alexa platform right now). `@chitchatjs/alexa` is a collection of VUI components designed on top of the core library specifically for Alexa Skill development.
-
-## Why use chitchat.js?
-
-### Simplicity
-
-Write your entire Alexa skill using Typescript or Javascript in a declarative style. Build on what you know already.
-
-### Pluggable Design
-
-Do more with fewer lines of code. Framework helps you design your experience using Building Blocks.
-
-### State Management
-
-Chitchat.js designs the entire skill into states and building blocks. Every state is linked to one building block, which handles a piece of conversation. For example - MovieRecommendation might be a state where we handle user's requests related to movie recommendations. Chitchat also makes it super easy to transition between states using builtin state transition building blocks.
-
-### Community
-
-Find and share reusable Building Blocks and enrich the experience even further.
 
 ## Prerequisites
 
@@ -65,7 +47,8 @@ You can either go to [Alexa Developer Console](https://developer.amazon.com) and
 Or you can use [ask dialog command](https://developer.amazon.com/en-US/docs/alexa/smapi/ask-cli-command-reference.html#dialog-command) to test your dialog in CLI itself.
 
 ```sh
-ask dialog --skill-id <skill-id> --locale en-US --stage development
+cd pkg/ # generated output
+ask dialog -l en-US
 
 U> open my skill
 A> hello world!
@@ -76,16 +59,12 @@ A> hello world!
 <br/>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-1Qwf7E8e-M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-<br/>
-<br/>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/w2IAhEcGS4Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-## Writing a basic skill
+## Writing a simple skill
 
 To get started, simply write this in your index.ts
 
 ```ts
-import { alexa as ax } from "@chitchatjs/alexa";
+import { ax } from "@chitchatjs/alexa";
 
 let state = ax
   .start()
@@ -97,79 +76,52 @@ let skill = ax
   .skill()
   .addState(state)
   .build();
-
 exports = ax.dialogManager(skill).exports();
 ```
 
-Above would render "Hello world" speech for every request user makes. Let's add a dialog turn to ask user their name:
+Output:
+
+```
+U: open <skill-name>
+A: Hello world
+```
+
+Let's add a dialog turn to ask user their name:
 
 ```ts
-import { alexa as ax } from "@chitchatjs/alexa";
-
 let state = ax
   .start()
   .block(
     ax
       .compound()
-      // welcome message
-      .add(ax.ask("Hello, what is your name?").build())
       .add(
-        // simple!
         ax
-          .whenUserSays(["my name is {name}", "{name}", "name is {name}"])
-          .withSlotType("name", "AMAZON.FirstName")
-          // {name} allows automatic slot resolution
+          .whenLaunch()
+          .then(ax.ask("Hello, what is your name?").build())
+          .build()
+      )
+      .add(
+        ax
+          .whenUserSays(["my name is {name}"])
+          .withSlotType("name", builtins.SlotType.FirstName)
           .then(ax.say("Welcome, {name}! It's nice to talk to you."))
           .build()
       )
       .build()
   )
   .build();
-
-...
 ```
 
-## Writing a reusable Building Block
+Output:
 
-We can also turn "greeting with the name" a building block to componentize it better.
-
-```ts
-import { alexa as ax } from "@chitchatjs/alexa";
-
-export namespace greetings {
-  export let greetWithName = () => {
-    return ax
-      .whenUserSays(["my name is {name}", "{name}", "name is {name}"])
-      .withSlotType("name", "AMAZON.FirstName")
-      .then(ax.say("Welcome, {name}! It's nice to talk to you."))
-      .build();
-  };
-}
+```
+U: open <skill name>
+A: Hello, what is your name?
+U: my name is kevindra
+A: Welcome, kevindra! It's nice to talk to you.
 ```
 
-Now, we can simply plug it into our skill:
-
-```ts
-import { alexa as ax } from "@chitchatjs/alexa";
-import { greetings as g } from "./greetings";
-
-let state = ax
-  .start()
-  .block(
-    ax
-      .compound()
-      // welcome message
-      .add(ax.ask("Hello, what is your name?").build())
-      // plugin our component here
-      .add(g.greetWithName())
-      .build()
-  )
-  .build();
-
-...
-```
-
-Then,
+Build and deploy using ChitchatJS CLI:
 
 ```sh
 > tsc
@@ -178,6 +130,68 @@ Then,
 ```
 
 That's it!
+
+## Deploy to your stack using code
+
+Wrap this in your stack module and deploy as code:
+
+```ts
+const handler = ax.dialogManager(skill).handler();
+```
+
+### AWS Lambda
+
+```ts
+import { Function, Runtime, AssetCode, Code } from "@aws-cdk/aws-lambda";
+
+// ...
+this.lambdaFunction = new Function(this, props.functionName, {
+  functionName: props.functionName,
+  handler: "handler.handler",
+  runtime: Runtime.NODEJS_10_X,
+  code: new AssetCode(`./src`), // points to your skill module
+  memorySize: 512,
+  timeout: Duration.seconds(10),
+});
+```
+
+### Express JS
+
+```ts
+import * as express from "express";
+import skill from "./src/skill";
+
+const app = express();
+const port = 3000;
+
+app.get("/", skill.express());
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
+```
+
+## Test
+
+Test using [alexa-skill-test-framework](https://www.npmjs.com/package/alexa-skill-test-framework).
+
+```ts
+import "mocha";
+import skill from "../src/index";
+const alexaTest = require("alexa-skill-test-framework");
+
+describe("Hello World Skill", function() {
+  alexaTest.initialize(skill, "appId", "userId", "deviceId");
+
+  alexaTest.test([
+    {
+      request: alexaTest.getLaunchRequest(),
+      says: "Hello World",
+      shouldEndSession: true,
+    },
+  ]);
+});
+```
 
 ## Packages
 
@@ -195,10 +209,10 @@ That's it!
 
 **Plugins**
 
-1. [@chitchatjs/alexa](https://www.npmjs.com/package/@chitchatjs/alexa)
-2. [@chitchatjs/plugin-ax-common](https://www.npmjs.com/package/@chitchatjs/plugin-ax-common)
-3. [@chitchatjs/plugin-ax-session](https://www.npmjs.com/package/@chitchatjs/plugin-ax-session)
-4. [@chitchatjs/plugin-ax-display](https://www.npmjs.com/package/@chitchatjs/plugin-ax-display)
+1. [@chitchatjs/plugin-ax-common](https://www.npmjs.com/package/@chitchatjs/plugin-ax-common)
+2. [@chitchatjs/plugin-ax-session](https://www.npmjs.com/package/@chitchatjs/plugin-ax-session)
+3. [@chitchatjs/plugin-ax-display](https://www.npmjs.com/package/@chitchatjs/plugin-ax-display)
+4. [@chitchatjs/plugin-ax-card](https://www.npmjs.com/package/@chitchatjs/plugin-ax-display)
 
 ## Comparison
 

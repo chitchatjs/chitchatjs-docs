@@ -1,12 +1,12 @@
 # Directory Structure
 
-You can use CJS using Typescript or Javascript and `npm` package manager. Following shows Typescript project structure.
+You can use CJS using Typescript or Javascript and `npm` package manager. When you setup a project using `cjs new` command, you will see the following project structure:
 
 ![Dir](../images/dir-structure.png)
 
 In the `index.ts` file, we define our entire application, which is then used by Chitchat as a hook to generate all the artifacts, dialog engine and wire all the blocks and their implementation together automatically.
 
-Package comes with one Chitchat dependency - `@chitchatjs/alexa` - an Alexa oriented building block library, which depends on the core library `@chitchatjs/core`. We will use components from these libraries to manufacture our voice interfaces.
+You will see a `cjs.json` in the root of the project. This configures the build process behavior.
 
 ## Building a package
 
@@ -14,10 +14,6 @@ When you use `cjs build` to build your project, it creates a `/pkg` directory in
 
 ::: tip
 You must commit this directory, because removing this directory will cause cjs to generate a new skill id. There are ways to update the skill id in the generate `/pkg`. But keeping `/pkg` in a git repo is much easier!
-:::
-
-::: tip
-You can also configure the output directory to something else as well. Check the [build configuration section](./configuration).
 :::
 
 ## Build Configurations
@@ -43,3 +39,7 @@ Deploys the project to the target platform.
 ```
 $ cjs deploy
 ```
+
+::: warning
+Make sure you have [ASK CLI installed and configured](https://www.npmjs.com/package/ask-cli). Without that `cjs deploy` will not work as it uses ASK CLI under the hood.
+:::

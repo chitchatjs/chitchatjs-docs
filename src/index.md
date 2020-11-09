@@ -6,15 +6,17 @@ actionText: Quick Start →
 actionLink: /guide/getting-started
 features:
   - title: Simplicity
-    details: Write your entire Alexa skill using Typescript or Javascript in a declarative style. Build on what you know already.
+    details: Write your entire Alexa skill including resources using Typescript or Javascript in a declarative style. Build on what you know already.
   - title: Pluggable Design
     details: Do more with fewer lines of code. Framework helps you design your experience using Building Blocks which automatically generate build artifacts as well as handle your runtime code.
+  - title: Type Safe
+    details: Type safe slot types and other artifacts. Find errors during compile time instead of runtime.
+  - title: Easy integration with infrastructure
+    details: Use code to integrate with infrastructures like AWS Lambda, Express server etc.
+  - title: Testing
+    details: Use your existing technologies to test the code.
   - title: Community
     details: Find and share reusable Building Blocks and enrich the experience even further.
-  # - title: Testing
-  #   details: A native model based testing to cover all your dialog paths with significantly less lines of code.
-  # - title: Playground
-  #   details: Test your ideas in the playground in CLI.
 footer: Made by Kevindra Singh with ❤️
 ---
 
@@ -58,6 +60,6 @@ For more, check out the [guide](/guide/getting-started). :tada:
 
 <h2 align="center">Quick Look and Demo</h2>
 
-<iframe width="300" align="center" height="200" src="https://www.youtube.com/embed/-1Qwf7E8e-M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="400" align="center" height="300" src="https://www.youtube.com/embed/-1Qwf7E8e-M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <br/>

@@ -70,6 +70,15 @@ A: okay, that was 2 medium hot chocolate for pickup, right? (context is preserve
 U: ok ordered!
 ```
 
+- 🏋️ [Workout Buddy](https://github.com/chitchatjs/workout-buddy)
+
+A skill that provides exercise lookup experience.
+
+```
+U: open sample workout buddy
+A: welcome ...
+```
+
 ## Installing templates
 
 If you want to install above sample skills as templates in your CJS cli. Go to your `~/.cjs/config.json` and add an entry with the git repo url.

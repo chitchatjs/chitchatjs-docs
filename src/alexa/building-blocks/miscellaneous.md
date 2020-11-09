@@ -23,6 +23,18 @@ A: Hello, Kevindra. I'm speaking this from a custom block.
 Sometimes you may also want to manually generate part of the resources such as Interaction Model, Skill Manifest etc yourself. `ax.custom()` block allows you to do that as well. You can set a resource using the [Skill Package path](https://developer.amazon.com/en-US/docs/alexa/smapi/skill-package-api-reference.html) of the resource.
 
 ```ts
+ax.custom().builder(async (c: AlexaBuilderContext) => {
+  const cityNames = await myDB.queryCityNames();
+  return ax
+    .slotType("City")
+    .values(cityNames)
+    .build();
+});
+```
+
+Another example:
+
+```ts
 ax.custom()
   .builder((c: AlexaBuilderContext) => {
     c.resources.resourceMap["/skill.json"] = mySkillManifest;

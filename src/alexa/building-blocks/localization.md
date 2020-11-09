@@ -19,7 +19,7 @@ ax.localize([Locale.en_US, Locale.en_CA])
   .build();
 ```
 
-Localize runtime outputs <Badge text="new" /><Badge text="0.3.0+" type="error" />
+Localize runtime outputs
 
 ```ts
 ax.localize([Locale.en_US, Locale.en_CA])

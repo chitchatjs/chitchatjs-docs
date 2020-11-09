@@ -8,8 +8,7 @@ When block in its simplest form executes its block only when provided condition 
 
 ```ts
 let whenBlock = ax
-  .when()
-  .true((ctx: AlexaDialogContext, event: AlexaEvent) => {
+  .when((ctx: AlexaDialogContext, event: AlexaEvent) => {
     return event.currentRequest.request.type === "IntentRequest";
   })
   .then(ax.say("This is an intent request!"));
@@ -59,7 +58,7 @@ You can use `{..}` to annotate a type inside a sample utterance and then use `.w
 
 ```ts
 ax.whenUserSays(["hello {name}"])
-  .withSlotType("name", "AMAZON.FIRST_NAME")
+  .withSlotType("name", builtins.SlotType.FirstName)
   .then(ax.say("hello you called me {name}!"))
   .build();
 ```

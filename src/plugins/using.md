@@ -16,7 +16,7 @@ let state1 = ax
   .block(
     ax
       .compound()
-      .add() // your own building block
+      .add(ax.say("This is plugin usage example"))
       .add(common.defaultHandlers()) // from common plugin
       .build()
   )

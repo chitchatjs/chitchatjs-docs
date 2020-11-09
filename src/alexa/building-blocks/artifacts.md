@@ -21,7 +21,7 @@ A block that allows you to inject an intent in your skill.
 ax.intent("HelloIntent", ["hello how are you"]).build();
 // or
 ax.intent("HelloIntent", ["hello how are you {name}"])
-  .slot("name", "AMAZON.FirstName")
+  .slot("name", builtins.SlotType.FirstName)
   .build();
 ```
 
