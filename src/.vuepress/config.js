@@ -81,7 +81,6 @@ module.exports = {
           ["/alexa/building-blocks/artifacts", "Artifacts"],
           ["/alexa/building-blocks/localization", "Localization"],
           ["/alexa/building-blocks/state-management", "State Management"],
-          ["/alexa/building-blocks/miscellaneous", "Miscellaneous"],
           ["/alexa/templates", "Sample Skills"],
           ["/alexa/testing", "Testing"],
         ],
